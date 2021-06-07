@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31129.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaAPI.Api", "CinemaAPI.Api\CinemaAPI.Api.csproj", "{15F31149-9DE0-46C9-8586-5FDAC0BE211C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaAPI.Core", "CinemaAPI.Core\CinemaAPI.Core.csproj", "{174B5708-4AD6-42A0-AF45-6FFFE1D569FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaAPI.Infrastructure", "CinemaAPI.Infrastructure\CinemaAPI.Infrastructure.csproj", "{6BC9F1DE-ECF7-4C59-AB51-8D3659A1C58E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F8BB403B-4F25-4744-B098-4215DE027D51}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaAPI.UnitTests", "CinemaAPI.UnitTests\CinemaAPI.UnitTests.csproj", "{D09C9C2B-F858-4624-9B2F-24B5634B288B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaAPI.IntegrationTests", "CinemaAPI.IntegrationTests\CinemaAPI.IntegrationTests.csproj", "{678AAAC5-DC57-490C-8656-234F803F553A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{15F31149-9DE0-46C9-8586-5FDAC0BE211C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15F31149-9DE0-46C9-8586-5FDAC0BE211C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15F31149-9DE0-46C9-8586-5FDAC0BE211C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15F31149-9DE0-46C9-8586-5FDAC0BE211C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{174B5708-4AD6-42A0-AF45-6FFFE1D569FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{174B5708-4AD6-42A0-AF45-6FFFE1D569FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{174B5708-4AD6-42A0-AF45-6FFFE1D569FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{174B5708-4AD6-42A0-AF45-6FFFE1D569FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BC9F1DE-ECF7-4C59-AB51-8D3659A1C58E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BC9F1DE-ECF7-4C59-AB51-8D3659A1C58E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BC9F1DE-ECF7-4C59-AB51-8D3659A1C58E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BC9F1DE-ECF7-4C59-AB51-8D3659A1C58E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D09C9C2B-F858-4624-9B2F-24B5634B288B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D09C9C2B-F858-4624-9B2F-24B5634B288B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D09C9C2B-F858-4624-9B2F-24B5634B288B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D09C9C2B-F858-4624-9B2F-24B5634B288B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{678AAAC5-DC57-490C-8656-234F803F553A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{678AAAC5-DC57-490C-8656-234F803F553A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{678AAAC5-DC57-490C-8656-234F803F553A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{678AAAC5-DC57-490C-8656-234F803F553A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D09C9C2B-F858-4624-9B2F-24B5634B288B} = {F8BB403B-4F25-4744-B098-4215DE027D51}
+		{678AAAC5-DC57-490C-8656-234F803F553A} = {F8BB403B-4F25-4744-B098-4215DE027D51}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E2B257AD-2A86-4BDC-9E2C-629BA678F584}
+	EndGlobalSection
+EndGlobal
