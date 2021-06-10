@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using CinemaAPI.Api.Responses;
 
 namespace CinemaAPI.Api.Controllers
 {
@@ -28,7 +29,9 @@ namespace CinemaAPI.Api.Controllers
         {
             var actor = await _actorRepository.GetActor(id);
             var actorDto = _mapper.Map<ActorDTO>(actor);
-            return Ok(actorDto);
+
+            var response = new ApiResponse<ActorDTO>(actorDto);
+            return Ok(response);
         }
 
         [HttpGet]
@@ -36,7 +39,9 @@ namespace CinemaAPI.Api.Controllers
         {
             var actors = await _actorRepository.GetActors();
             var actorsDto = _mapper.Map<IEnumerable<ActorDTO>>(actors);
-            return Ok(actorsDto);
+
+            var response = new ApiResponse<IEnumerable<ActorDTO>>(actorsDto);
+            return Ok(response);
         }
 
         [HttpPost]
@@ -44,7 +49,30 @@ namespace CinemaAPI.Api.Controllers
         {
             var actor = _mapper.Map<Actor>(actorDto);
             await _actorRepository.AddActor(actor);
-            return Ok(actor);
+
+            actorDto = _mapper.Map<ActorDTO>(actor);
+            var response = new ApiResponse<ActorDTO>(actorDto);
+
+            return Ok(response);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Put(int id, ActorDTO actorDto)
+        {
+            var actor = _mapper.Map<Actor>(actorDto);
+            actor.ActorId = id;
+
+            var result = await _actorRepository.UpdateActor(actor);
+            var response = new ApiResponse<bool>(result);
+            return Ok(response);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var result = await _actorRepository.RemoveActor(id);
+            var response = new ApiResponse<bool>(result);
+            return Ok(response);
         }
 
     }

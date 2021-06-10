@@ -38,6 +38,31 @@ namespace CinemaAPI.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task<bool> UpdateActor(Actor actor)
+        {
+            var currentActor = await GetActor(actor.ActorId);
+            currentActor.Firstname = actor.Firstname;
+            currentActor.Lastname = actor.Lastname;
+            currentActor.Age = actor.Age;
+            currentActor.Gender = actor.Gender;
+            currentActor.Rating = actor.Rating;
+            currentActor.Image = actor.Image;
+
+            int rows = await _context.SaveChangesAsync();
+            return rows > 0;
+        }
+
+        public async Task<bool> RemoveActor(int id)
+        {
+            var currentActor = await GetActor(id);
+            _context.Actor.Remove(currentActor);
+
+            int rows = await _context.SaveChangesAsync();
+            return rows > 0;
+        }
+
+
+
 
     }
 }
