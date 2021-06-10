@@ -7,6 +7,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using System;
+using CinemaAPI.Infrastructure.Filters;
+using FluentValidation.AspNetCore;
 
 namespace CinemaAPI.Api
 {
@@ -22,17 +25,29 @@ namespace CinemaAPI.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddControllers().AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            })
+            .ConfigureApiBehaviorOptions(options => 
+            {
+                //options.SuppressModelStateInvalidFilter = true;
+            });
+
 
             services.AddDbContext<CinemaAPIContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Dev")));
 
             services.AddTransient<IActorRepository, ActorRepository>();
-            services.AddTransient<IDirectorRepository, DirectorRepository>();
-            services.AddTransient<IFilmRepository, FilmRepository>();
-            services.AddTransient<ICrewRepository, CrewRepository>();
-            services.AddTransient<ICrewRoleRepository, CrewRoleRepository>();
-            services.AddTransient<ICrewMemberRepository, CrewMemberRepository>();
 
+            services.AddMvc(options =>
+            {
+                options.Filters.Add<ValidationFilter>();
+            }).AddFluentValidation(options => 
+            {
+                options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+            });
 
         }
 

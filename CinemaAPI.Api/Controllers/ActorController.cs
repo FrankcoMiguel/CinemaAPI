@@ -1,12 +1,11 @@
 ﻿using CinemaAPI.Core.Entities;
+using CinemaAPI.Core.DTOs;
 using CinemaAPI.Core.Interfaces;
-using CinemaAPI.Infrastructure.Repositories;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace CinemaAPI.Api.Controllers
 {
@@ -16,29 +15,34 @@ namespace CinemaAPI.Api.Controllers
     {
 
         private readonly IActorRepository _actorRepository;
+        private readonly IMapper _mapper;
 
-        public ActorController(IActorRepository actorRepository)
+        public ActorController(IActorRepository actorRepository, IMapper mapper)
         {
             _actorRepository = actorRepository;
+            _mapper = mapper;
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetActor(int id)
+        public async Task<IActionResult> Get(int id)
         {
             var actor = await _actorRepository.GetActor(id);
-            return Ok(actor);
+            var actorDto = _mapper.Map<ActorDTO>(actor);
+            return Ok(actorDto);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetActors()
+        public async Task<IActionResult> GetAll()
         {
             var actors = await _actorRepository.GetActors();
-            return Ok(actors);
+            var actorsDto = _mapper.Map<IEnumerable<ActorDTO>>(actors);
+            return Ok(actorsDto);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddActor(Actor actor)
+        public async Task<IActionResult> Post(ActorDTO actorDto)
         {
+            var actor = _mapper.Map<Actor>(actorDto);
             await _actorRepository.AddActor(actor);
             return Ok(actor);
         }
