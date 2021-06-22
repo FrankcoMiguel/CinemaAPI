@@ -27,7 +27,9 @@ namespace CinemaAPI.Infrastructure.Data
         {
             modelBuilder.Entity<Actor>(entity =>
             {
-                entity.Property(e => e.ActorId).ValueGeneratedNever();
+                entity.Property(e => e.Id)
+                .HasColumnName("ActorId")
+                .ValueGeneratedNever();
 
                 entity.Property(e => e.Firstname)
                     .IsRequired()
@@ -54,7 +56,9 @@ namespace CinemaAPI.Infrastructure.Data
 
             modelBuilder.Entity<Crew>(entity =>
             {
-                entity.Property(e => e.CrewId).ValueGeneratedNever();
+                entity.Property(e => e.Id)
+                .HasColumnName("CrewId")
+                .ValueGeneratedNever();
 
                 entity.Property(e => e.Description)
                     .IsRequired()
@@ -69,7 +73,9 @@ namespace CinemaAPI.Infrastructure.Data
 
             modelBuilder.Entity<CrewMember>(entity =>
             {
-                entity.Property(e => e.CrewMemberId).ValueGeneratedNever();
+                entity.Property(e => e.Id)
+                .HasColumnName("CrewMemberId")
+                .ValueGeneratedNever();
 
                 entity.Property(e => e.Firstname)
                     .IsRequired()
@@ -106,7 +112,9 @@ namespace CinemaAPI.Infrastructure.Data
 
             modelBuilder.Entity<CrewRole>(entity =>
             {
-                entity.Property(e => e.CrewRoleId).ValueGeneratedNever();
+                entity.Property(e => e.Id)
+                .HasColumnName("CrewRoleId")
+                .ValueGeneratedNever();
 
                 entity.Property(e => e.Description)
                     .IsRequired()
@@ -121,7 +129,9 @@ namespace CinemaAPI.Infrastructure.Data
 
             modelBuilder.Entity<Director>(entity =>
             {
-                entity.Property(e => e.DirectorId).ValueGeneratedNever();
+                entity.Property(e => e.Id)
+                .HasColumnName("DirectorId")
+                .ValueGeneratedNever();
 
                 entity.Property(e => e.Firstname)
                     .IsRequired()
@@ -148,7 +158,9 @@ namespace CinemaAPI.Infrastructure.Data
 
             modelBuilder.Entity<Film>(entity =>
             {
-                entity.Property(e => e.FilmId).ValueGeneratedNever();
+                entity.Property(e => e.Id)
+                .HasColumnName("FilmId")
+                .ValueGeneratedNever();
 
                 entity.Property(e => e.Description)
                     .IsRequired()

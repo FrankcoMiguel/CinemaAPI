@@ -2,7 +2,7 @@
 {
     public class ActorDTO
     {
-        public int ActorId { get; set; }
+        public int Id { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public int Age { get; set; }

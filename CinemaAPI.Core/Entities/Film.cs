@@ -2,9 +2,8 @@
 
 namespace CinemaAPI.Core.Entities
 {
-    public partial class Film
+    public partial class Film : BaseEntity
     {
-        public int FilmId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public DateTime ReleaseDate { get; set; }

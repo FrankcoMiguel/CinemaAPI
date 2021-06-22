@@ -9,37 +9,43 @@ namespace CinemaAPI.Core.Services
 {
     public class ActorService : IActorService
     {
-        private readonly IActorRepository _actorRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ActorService(IActorRepository actorRepository)
+        public ActorService(IUnitOfWork unitOfWork)
         {
-            _actorRepository = actorRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<IEnumerable<Actor>> GetActors()
         {
-            return await _actorRepository.GetActors();
+            return await _unitOfWork.ActorRepository.GetAll();
         }
 
 
         public async Task<Actor> GetActor(int id)
         {
-            return await _actorRepository.GetActor(id);
+            //We can add business logic here :)
+            return await _unitOfWork.ActorRepository.GetById(id);
         }
 
         public async Task AddActor(Actor actor)
         {
-            await _actorRepository.AddActor(actor);
+            //We can add business logic here :)
+            await _unitOfWork.ActorRepository.Add(actor);
         }
 
         public async Task<bool> UpdateActor(Actor actor)
         {
-            return await _actorRepository.UpdateActor(actor);
+            //We can add business logic here :)
+            await _unitOfWork.ActorRepository.Update(actor);
+            return true;
         }
 
         public async Task<bool> RemoveActor(int id)
         {
-            return await _actorRepository.RemoveActor(id);
+            //We can add business logic here :)
+            await _unitOfWork.ActorRepository.Delete(id);
+            return true;
         }
 
     }

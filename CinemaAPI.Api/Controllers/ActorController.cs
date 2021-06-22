@@ -60,7 +60,7 @@ namespace CinemaAPI.Api.Controllers
         public async Task<IActionResult> Put(int id, ActorDTO actorDto)
         {
             var actor = _mapper.Map<Actor>(actorDto);
-            actor.ActorId = id;
+            actor.Id = id;
 
             var result = await _actorService.UpdateActor(actor);
             var response = new ApiResponse<bool>(result);
