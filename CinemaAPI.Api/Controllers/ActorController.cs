@@ -15,19 +15,19 @@ namespace CinemaAPI.Api.Controllers
     public class ActorController : ControllerBase
     {
 
-        private readonly IActorRepository _actorRepository;
+        private readonly IActorService _actorService;
         private readonly IMapper _mapper;
 
-        public ActorController(IActorRepository actorRepository, IMapper mapper)
+        public ActorController(IActorService actorService, IMapper mapper)
         {
-            _actorRepository = actorRepository;
+            _actorService = actorService;
             _mapper = mapper;
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var actor = await _actorRepository.GetActor(id);
+            var actor = await _actorService.GetActor(id);
             var actorDto = _mapper.Map<ActorDTO>(actor);
 
             var response = new ApiResponse<ActorDTO>(actorDto);
@@ -37,7 +37,7 @@ namespace CinemaAPI.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var actors = await _actorRepository.GetActors();
+            var actors = await _actorService.GetActors();
             var actorsDto = _mapper.Map<IEnumerable<ActorDTO>>(actors);
 
             var response = new ApiResponse<IEnumerable<ActorDTO>>(actorsDto);
@@ -48,7 +48,7 @@ namespace CinemaAPI.Api.Controllers
         public async Task<IActionResult> Post(ActorDTO actorDto)
         {
             var actor = _mapper.Map<Actor>(actorDto);
-            await _actorRepository.AddActor(actor);
+            await _actorService.AddActor(actor);
 
             actorDto = _mapper.Map<ActorDTO>(actor);
             var response = new ApiResponse<ActorDTO>(actorDto);
@@ -62,7 +62,7 @@ namespace CinemaAPI.Api.Controllers
             var actor = _mapper.Map<Actor>(actorDto);
             actor.ActorId = id;
 
-            var result = await _actorRepository.UpdateActor(actor);
+            var result = await _actorService.UpdateActor(actor);
             var response = new ApiResponse<bool>(result);
             return Ok(response);
         }
@@ -70,7 +70,7 @@ namespace CinemaAPI.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await _actorRepository.RemoveActor(id);
+            var result = await _actorService.RemoveActor(id);
             var response = new ApiResponse<bool>(result);
             return Ok(response);
         }

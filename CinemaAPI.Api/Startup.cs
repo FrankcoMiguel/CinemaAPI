@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using CinemaAPI.Infrastructure.Filters;
 using FluentValidation.AspNetCore;
+using CinemaAPI.Core.Services;
 
 namespace CinemaAPI.Api
 {
@@ -39,6 +40,7 @@ namespace CinemaAPI.Api
 
             services.AddDbContext<CinemaAPIContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Dev")));
 
+            services.AddTransient<IActorService, ActorService>();
             services.AddTransient<IActorRepository, ActorRepository>();
 
             services.AddMvc(options =>
