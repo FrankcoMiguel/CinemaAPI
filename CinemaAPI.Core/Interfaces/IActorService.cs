@@ -6,7 +6,7 @@ namespace CinemaAPI.Core.Interfaces
 {
     public interface IActorService
     {
-        Task<IEnumerable<Actor>> GetActors();
+        IEnumerable<Actor> GetActors();
         Task<Actor> GetActor(int id);
         Task AddActor(Actor actor);
         Task<bool> UpdateActor(Actor actor);

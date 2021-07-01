@@ -35,9 +35,9 @@ namespace CinemaAPI.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public IActionResult GetAll()
         {
-            var actors = await _actorService.GetActors();
+            var actors = _actorService.GetActors();
             var actorsDto = _mapper.Map<IEnumerable<ActorDTO>>(actors);
 
             var response = new ApiResponse<IEnumerable<ActorDTO>>(actorsDto);

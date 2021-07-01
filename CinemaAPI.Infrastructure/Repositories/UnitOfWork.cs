@@ -12,7 +12,7 @@ namespace CinemaAPI.Infrastructure.Repositories
     {
         private readonly CinemaAPIContext _context;
 
-        private readonly IRepository<Actor> _actorRepository;
+        private readonly IActorRepository _actorRepository;
         private readonly IRepository<Crew> _crewRepository;
         private readonly IRepository<CrewMember> _crewMemberRepository;
         private readonly IRepository<CrewRole> _crewRoleRepository;
@@ -25,7 +25,7 @@ namespace CinemaAPI.Infrastructure.Repositories
             _context = context;
         }
 
-        public IRepository<Actor> ActorRepository => _actorRepository ?? new BaseRepository<Actor>(_context);
+        public IActorRepository ActorRepository => _actorRepository ?? new ActorRepository(_context);
 
         public IRepository<Crew> CrewRepository => _crewRepository ?? new BaseRepository<Crew>(_context);
 

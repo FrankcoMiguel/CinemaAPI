@@ -16,9 +16,9 @@ namespace CinemaAPI.Core.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<Actor>> GetActors()
+        public IEnumerable<Actor> GetActors()
         {
-            return await _unitOfWork.ActorRepository.GetAll();
+            return _unitOfWork.ActorRepository.GetAll();
         }
 
 
@@ -32,12 +32,14 @@ namespace CinemaAPI.Core.Services
         {
             //We can add business logic here :)
             await _unitOfWork.ActorRepository.Add(actor);
+            await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task<bool> UpdateActor(Actor actor)
         {
             //We can add business logic here :)
-            await _unitOfWork.ActorRepository.Update(actor);
+            _unitOfWork.ActorRepository.Update(actor);
+            await _unitOfWork.SaveChangesAsync();
             return true;
         }
 
@@ -45,6 +47,7 @@ namespace CinemaAPI.Core.Services
         {
             //We can add business logic here :)
             await _unitOfWork.ActorRepository.Delete(id);
+            _unitOfWork.SaveChanges();
             return true;
         }
 
