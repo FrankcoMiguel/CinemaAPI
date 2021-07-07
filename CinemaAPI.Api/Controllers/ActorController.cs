@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using CinemaAPI.Api.Responses;
+using CinemaAPI.Core.QueryFilters;
+using System.Net;
 
 namespace CinemaAPI.Api.Controllers
 {
@@ -35,9 +37,11 @@ namespace CinemaAPI.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public IActionResult GetAll([FromQuery]ActorQueryFilter filters)
         {
-            var actors = _actorService.GetActors();
+            var actors = _actorService.GetActors(filters);
             var actorsDto = _mapper.Map<IEnumerable<ActorDTO>>(actors);
 
             var response = new ApiResponse<IEnumerable<ActorDTO>>(actorsDto);

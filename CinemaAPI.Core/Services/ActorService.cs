@@ -1,7 +1,9 @@
 ﻿using CinemaAPI.Core.Entities;
 using CinemaAPI.Core.Interfaces;
+using CinemaAPI.Core.QueryFilters;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,9 +18,21 @@ namespace CinemaAPI.Core.Services
             _unitOfWork = unitOfWork;
         }
 
-        public IEnumerable<Actor> GetActors()
+        public IEnumerable<Actor> GetActors(ActorQueryFilter filters)
         {
-            return _unitOfWork.ActorRepository.GetAll();
+            var actors = _unitOfWork.ActorRepository.GetAll();
+
+            if (filters.Age != null)
+            {
+                actors = actors.Where(x => x.Age == filters.Age);
+            }
+
+            if (filters.MinRating != null && filters.MaxRating != null && filters.MinRating < filters.MaxRating)
+            {
+                actors = actors.Where(x => x.Rating >= filters.MinRating && x.Rating <= filters.MaxRating);
+            }
+
+            return actors;
         }
 
 
