@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace CinemaAPI.Core.Interfaces
 {
-    public interface IActorRepository : IRepository<Actor>
+    public interface IAgeRatingRepository : IRepository<AgeRating>
     {
-        Task<IEnumerable<Actor>> GetActorsByFilm(int filmId);
+        Task<IEnumerable<AgeRating>> GetAgeRatingsByFilms(int filmId);
+
     }
 }
