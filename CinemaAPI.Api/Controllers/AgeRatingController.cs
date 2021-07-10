@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CinemaAPI.Api.Controllers
 {
-    [Route("api/age-rating")]
+    [Route("api/rating")]
     [ApiController]
     public class AgeRatingController : ControllerBase
     {

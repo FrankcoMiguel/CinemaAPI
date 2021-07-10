@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using CinemaAPI.Api.Responses;
+using CinemaAPI.Core.CustomEntities;
 using CinemaAPI.Core.DTOs;
 using CinemaAPI.Core.Entities;
 using CinemaAPI.Core.Interfaces;
 using CinemaAPI.Core.QueryFilters;
+using CinemaAPI.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -12,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace CinemaAPI.Api.Controllers
 {
+    [Produces("application/json")]
     [Route("api/genre")]
     [ApiController]
     public class GenreController : ControllerBase
@@ -19,15 +22,17 @@ namespace CinemaAPI.Api.Controllers
 
         private readonly IGenreService _genreService;
         private readonly IMapper _mapper;
+        private readonly IUriService _uriService;
 
-        public GenreController(IGenreService genreService, IMapper mapper)
+        public GenreController(IGenreService genreService, IMapper mapper, IUriService uriService)
         {
             _genreService = genreService;
             _mapper = mapper;
+            _uriService = uriService;
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> GetGenre(int id)
         {
             var genre = await _genreService.GetGenre(id);
             var genreDto = _mapper.Map<GenreDTO>(genre);
@@ -36,25 +41,36 @@ namespace CinemaAPI.Api.Controllers
             return Ok(response);
         }
 
-        [HttpGet]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
+        /// <summary>
+        /// Retrieve all genres
+        /// </summary>
+        /// <param name="filters">Filters to apply</param>
+        /// <returns></returns>
+        [HttpGet(Name = nameof(GetGenres))]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ApiResponse<IEnumerable<GenreDTO>>))]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public IActionResult GetAll([FromQuery] GenreQueryFilter filters)
+        public IActionResult GetGenres([FromQuery] GenreQueryFilter filters)
         {
             var genres = _genreService.GetGenres(filters);
             var genresDto = _mapper.Map<IEnumerable<GenreDTO>>(genres);
-            var response = new ApiResponse<IEnumerable<GenreDTO>>(genresDto);
 
-            var metadata = new
+            var metadata = new Metadata
             {
-                genres.TotalCount,
-                genres.PageSize,
-                genres.CurrentPage,
-                genres.TotalPages,
-                genres.HasNextPage,
-                genres.HasPreviousPage
+                CurrentPage = genres.CurrentPage,
+                PageSize = genres.PageSize,
+                TotalPages = genres.TotalPages,
+                TotalCount = genres.TotalCount,
+                HasNextPage = genres.HasNextPage,
+                HasPreviousPage = genres.HasPreviousPage,
+                NextPageURL = _uriService.GetGenrePaginationUri(filters, Url.RouteUrl(nameof(GetGenres))).ToString(),
+                PreviousPageURL = _uriService.GetGenrePaginationUri(filters, Url.RouteUrl(nameof(GetGenres))).ToString()
+
             };
 
+            var response = new ApiResponse<IEnumerable<GenreDTO>>(genresDto)
+            {
+                Meta = metadata
+            };
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
             return Ok(response);
         }

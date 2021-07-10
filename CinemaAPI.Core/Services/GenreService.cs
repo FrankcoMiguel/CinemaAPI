@@ -1,7 +1,9 @@
 ﻿using CinemaAPI.Core.CustomEntities;
 using CinemaAPI.Core.Entities;
 using CinemaAPI.Core.Interfaces;
+using CinemaAPI.Core.Options;
 using CinemaAPI.Core.QueryFilters;
+using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
 
 namespace CinemaAPI.Core.Services
@@ -9,14 +11,19 @@ namespace CinemaAPI.Core.Services
     public class GenreService : IGenreService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly PaginationOptions _paginationOptions;
 
-        public GenreService(IUnitOfWork unitOfWork)
+        public GenreService(IUnitOfWork unitOfWork, IOptions<PaginationOptions> options)
         {
             _unitOfWork = unitOfWork;
+            _paginationOptions = options.Value;
         }
 
         public PagedList<Genre> GetGenres(GenreQueryFilter filters)
         {
+            filters.PageNumber = filters.PageNumber == 0 ? _paginationOptions.DefaultPageNumber : filters.PageNumber;
+            filters.PageSize = filters.PageSize == 0 ? _paginationOptions.DefaultPageSize : filters.PageSize;
+
             var genres = _unitOfWork.GenreRepository.GetAll();
 
             var pagedGenres = PagedList<Genre>.Create(genres, filters.PageNumber, filters.PageSize);
