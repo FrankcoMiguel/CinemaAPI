@@ -6,6 +6,7 @@ using CinemaAPI.Core.Entities;
 using CinemaAPI.Core.Interfaces;
 using CinemaAPI.Core.QueryFilters;
 using CinemaAPI.Infrastructure.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace CinemaAPI.Api.Controllers
 {
+    [Authorize]
     [Produces("application/json")]
     [Route("api/genre")]
     [ApiController]
