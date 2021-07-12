@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace CinemaAPI.Core.Entities
 {
-    public partial class AgeRating : BaseEntity
+    public partial class Rating : BaseEntity
     {
-        public AgeRating()
+        public Rating()
         {
             Film = new HashSet<Film>();
         }

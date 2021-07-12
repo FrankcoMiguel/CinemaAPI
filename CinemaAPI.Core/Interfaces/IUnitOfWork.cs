@@ -5,8 +5,11 @@ namespace CinemaAPI.Core.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
-        IAgeRatingRepository AgeRatingRepository { get; }
+        IFilmRepository FilmRepository { get; }
         IGenreRepository GenreRepository { get; }
+        IOccupationRepository OccupationRepository { get; }
+        IPersonRepository PersonRepository { get;  }
+        IRatingRepository RatingRepository { get; }
 
 
         void SaveChanges();

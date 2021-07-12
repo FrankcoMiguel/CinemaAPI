@@ -8,16 +8,24 @@ namespace CinemaAPI.Infrastructure.Repositories
     {
         private readonly CinemaAPIContext _context;
 
-        private readonly IAgeRatingRepository _ageRatingRepository;
+        private readonly IFilmRepository _filmRepository;
         private readonly IGenreRepository _genreRepository;
+        private readonly IOccupationRepository _occupationRepository;
+        private readonly IPersonRepository _personRepository;
+        private readonly IRatingRepository _ratingRepository;
+
+
 
         public UnitOfWork(CinemaAPIContext context)
         {
             _context = context;
         }
 
-        public IAgeRatingRepository AgeRatingRepository => _ageRatingRepository ?? new AgeRatingRepository(_context);
+        public IFilmRepository FilmRepository => _filmRepository ?? new FilmRepository(_context);
         public IGenreRepository GenreRepository => _genreRepository ?? new GenreRepository(_context);
+        public IOccupationRepository OccupationRepository => _occupationRepository ?? new OccupationRepository(_context);
+        public IPersonRepository PersonRepository => _personRepository ?? new PersonRepository(_context);
+        public IRatingRepository RatingRepository => _ratingRepository ?? new RatingRepository(_context);
 
         public void Dispose()
         {

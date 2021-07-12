@@ -54,9 +54,11 @@ namespace CinemaAPI.Api
             services.AddDbContext<CinemaAPIContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Dev")));
 
             //Services
-            services.AddTransient<IAgeRatingService, AgeRatingService>();
+            services.AddTransient<IFilmService, FilmService>();
             services.AddTransient<IGenreService, GenreService>();
-
+            services.AddTransient<IOccupationService, OccupationService>();
+            services.AddTransient<IPersonService, PersonService>();
+            services.AddTransient<IRatingService, RatingService>();
 
 
             //Repository and Unit Of Work

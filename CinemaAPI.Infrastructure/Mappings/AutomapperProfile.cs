@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
 using CinemaAPI.Core.DTOs;
 using CinemaAPI.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CinemaAPI.Infrastructure.Mappings
 {
@@ -11,11 +8,20 @@ namespace CinemaAPI.Infrastructure.Mappings
     {
         public AutomapperProfile()
         {
-            CreateMap<AgeRating, AgeRatingDTO>();
-            CreateMap<AgeRatingDTO, AgeRating>();
+            CreateMap<Film, FilmDTO>();
+            CreateMap<FilmDTO, Film>();
 
             CreateMap<Genre, GenreDTO>();
             CreateMap<GenreDTO, Genre>();
+
+            CreateMap<Occupation, OccupationDTO>();
+            CreateMap<OccupationDTO, Occupation>();
+
+            CreateMap<Person, PersonDTO>();
+            CreateMap<PersonDTO, Person>();
+
+            CreateMap<Rating, RatingDTO>();
+            CreateMap<RatingDTO, Rating>();
 
         }
     }

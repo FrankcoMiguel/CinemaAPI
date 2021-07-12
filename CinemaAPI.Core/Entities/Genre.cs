@@ -7,12 +7,12 @@ namespace CinemaAPI.Core.Entities
     {
         public Genre()
         {
-            FilmGenre = new HashSet<FilmGenre>();
+            Genres = new HashSet<Genres>();
         }
 
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public virtual ICollection<FilmGenre> FilmGenre { get; set; }
+        public virtual ICollection<Genres> Genres { get; set; }
     }
 }
