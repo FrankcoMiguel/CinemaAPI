@@ -11,8 +11,12 @@ namespace CinemaAPI.Infrastructure.Mappings
     {
         public AutomapperProfile()
         {
-            CreateMap<Actor, ActorDTO>();
-            CreateMap<ActorDTO, Actor>();
+            CreateMap<AgeRating, AgeRatingDTO>();
+            CreateMap<AgeRatingDTO, AgeRating>();
+
+            CreateMap<Genre, GenreDTO>();
+            CreateMap<GenreDTO, Genre>();
+
         }
     }
 }

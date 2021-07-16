@@ -3,16 +3,16 @@ using System.Collections.Generic;
 
 namespace CinemaAPI.Core.Entities
 {
-    public partial class CrewRole : BaseEntity
+    public partial class Genre : BaseEntity
     {
-        public CrewRole()
+        public Genre()
         {
-            CrewMember = new HashSet<CrewMember>();
+            FilmGenre = new HashSet<FilmGenre>();
         }
 
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public virtual ICollection<CrewMember> CrewMember { get; set; }
+        public virtual ICollection<FilmGenre> FilmGenre { get; set; }
     }
 }

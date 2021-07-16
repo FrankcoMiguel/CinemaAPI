@@ -11,6 +11,13 @@ using System;
 using CinemaAPI.Infrastructure.Filters;
 using FluentValidation.AspNetCore;
 using CinemaAPI.Core.Services;
+using Microsoft.AspNetCore.Http;
+using CinemaAPI.Infrastructure.Interfaces;
+using CinemaAPI.Infrastructure.Services;
+using CinemaAPI.Core.Options;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
+using System.IO;
 
 namespace CinemaAPI.Api
 {
@@ -28,25 +35,49 @@ namespace CinemaAPI.Api
         {
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            services.AddControllers().AddNewtonsoftJson(options =>
+            services.AddControllers(options => {
+                options.Filters.Add<GlobalExceptionFilter>();
+            }).AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
             })
             .ConfigureApiBehaviorOptions(options => 
             {
                 //options.SuppressModelStateInvalidFilter = true;
             });
 
-
+            services.Configure<PaginationOptions>(Configuration.GetSection("Pagination"));
             services.AddDbContext<CinemaAPIContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Dev")));
 
             //Services
-            services.AddTransient<IActorService, ActorService>();
-            
-            //Repository
+            services.AddTransient<IAgeRatingService, AgeRatingService>();
+            services.AddTransient<IGenreService, GenreService>();
+
+
+
+            //Repository and Unit Of Work
             services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
-            
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+
+            //Uri
+            services.AddSingleton<IUriService>(provider =>
+            {
+                var accesor = provider.GetRequiredService<IHttpContextAccessor>();
+                var request = accesor.HttpContext.Request;
+                var absoluteUri = string.Concat(request.Scheme, "://", request.Host.ToUriComponent());
+                return new UriService(absoluteUri);
+            });
+            
+            //Swagger Docs
+            services.AddSwaggerGen(doc =>
+            {
+                doc.SwaggerDoc("v1", new OpenApiInfo { Title = "Cinema API", Version = "v1" });
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                doc.IncludeXmlComments(xmlPath);
+            });
 
 
             services.AddMvc(options =>
@@ -68,6 +99,14 @@ namespace CinemaAPI.Api
             }
 
             app.UseHttpsRedirection();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Cinema API");
+                options.RoutePrefix = string.Empty;
+            });
 
             app.UseRouting();
 
