@@ -10,6 +10,8 @@ namespace CinemaAPI.Core.Interfaces
         IOccupationRepository OccupationRepository { get; }
         IPersonRepository PersonRepository { get;  }
         IRatingRepository RatingRepository { get; }
+        IUserRepository UserRepository { get; }
+
 
 
         void SaveChanges();

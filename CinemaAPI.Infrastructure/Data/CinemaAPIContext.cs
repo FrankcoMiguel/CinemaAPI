@@ -1,5 +1,7 @@
 ﻿using CinemaAPI.Core.Entities;
+using CinemaAPI.Core.Enumerations;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace CinemaAPI.Infrastructure.Data
 {
@@ -22,6 +24,8 @@ namespace CinemaAPI.Infrastructure.Data
         public virtual DbSet<Occupations> Occupations { get; set; }
         public virtual DbSet<Person> Person { get; set; }
         public virtual DbSet<Rating> Rating { get; set; }
+        public virtual DbSet<User> User { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -240,6 +244,46 @@ namespace CinemaAPI.Infrastructure.Data
                     .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.ToTable("User", "Cinema");
+
+                entity.Property(e => e.Id)
+                .HasColumnName("UserId");
+
+                entity.HasIndex(e => e.Username)
+                    .HasName("UQ_User")
+                    .IsUnique();
+
+                entity.Property(e => e.Firstname)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Lastname)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Username)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Role)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .HasConversion(
+                    x => x.ToString(),
+                    x => (RoleType)Enum.Parse(typeof(RoleType), x)
+                    );
             });
 
             OnModelCreatingPartial(modelBuilder);
