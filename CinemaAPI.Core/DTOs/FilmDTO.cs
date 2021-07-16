@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CinemaAPI.Core.Entities;
 
-namespace CinemaAPI.Core.Entities
+namespace CinemaAPI.Core.DTOs
 {
-    public partial class Film : BaseEntity
+    public class FilmDTO
     {
-        public Film()
-        {
-            Casting = new HashSet<Casting>();
-            Genres = new HashSet<Genres>();
-        }
-
         public string Title { get; set; }
         public string Synopsis { get; set; }
         public int ReleaseYear { get; set; }
@@ -21,9 +14,6 @@ namespace CinemaAPI.Core.Entities
         public decimal? Budget { get; set; }
         public decimal? BoxOffice { get; set; }
         public string PictureReference { get; set; }
-
         public virtual Rating Rating { get; set; }
-        public virtual ICollection<Casting> Casting { get; set; }
-        public virtual ICollection<Genres> Genres { get; set; }
     }
 }

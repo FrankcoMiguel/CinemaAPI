@@ -20,5 +20,11 @@ namespace CinemaAPI.Infrastructure.Services
             return new Uri(baseURL);
         }
 
+        public Uri GetFilmPaginationUri(FilmQueryFilter filter, string actionURL)
+        {
+            string baseURL = $"{_baseUri}{actionURL}";
+            return new Uri(baseURL);
+        }
+
     }
 }

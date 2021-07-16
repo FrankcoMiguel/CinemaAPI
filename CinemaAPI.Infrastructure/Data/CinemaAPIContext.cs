@@ -1,5 +1,7 @@
 ﻿using CinemaAPI.Core.Entities;
+using CinemaAPI.Core.Enumerations;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace CinemaAPI.Infrastructure.Data
 {
@@ -14,47 +16,44 @@ namespace CinemaAPI.Infrastructure.Data
         {
         }
 
-        public virtual DbSet<AgeRating> AgeRating { get; set; }
+        public virtual DbSet<Casting> Casting { get; set; }
         public virtual DbSet<Film> Film { get; set; }
-        public virtual DbSet<FilmGenre> FilmGenre { get; set; }
-        public virtual DbSet<FilmPerson> FilmPerson { get; set; }
         public virtual DbSet<Genre> Genre { get; set; }
+        public virtual DbSet<Genres> Genres { get; set; }
         public virtual DbSet<Occupation> Occupation { get; set; }
+        public virtual DbSet<Occupations> Occupations { get; set; }
         public virtual DbSet<Person> Person { get; set; }
-        public virtual DbSet<PersonFilmOccupation> PersonFilmOccupation { get; set; }
-        public virtual DbSet<PersonOccupation> PersonOccupation { get; set; }
+        public virtual DbSet<Rating> Rating { get; set; }
+        public virtual DbSet<User> User { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AgeRating>(entity =>
+            modelBuilder.Entity<Casting>(entity =>
             {
-                entity.ToTable("AgeRating", "Cinema");
+                entity.ToTable("Casting", "Cinema");
 
                 entity.Property(e => e.Id)
-                .HasColumnName("AgeRatingId");
+                .HasColumnName("CastingId");
 
-                entity.HasIndex(e => e.Code)
-                    .HasName("UQ__AgeRatin__A25C5AA7475A8FAA")
+                entity.HasIndex(e => new { e.PersonId, e.FilmId, e.OccupationId })
+                    .HasName("UQ_Casting")
                     .IsUnique();
 
-                entity.HasIndex(e => e.Name)
-                    .HasName("UQ__AgeRatin__737584F6D8F72F8E")
-                    .IsUnique();
+                entity.HasOne(d => d.Film)
+                    .WithMany(p => p.Casting)
+                    .HasForeignKey(d => d.FilmId)
+                    .HasConstraintName("FK__Casting__FilmId__0EF836A4");
 
-                entity.Property(e => e.Code)
-                    .IsRequired()
-                    .HasMaxLength(15)
-                    .IsUnicode(false);
+                entity.HasOne(d => d.Occupation)
+                    .WithMany(p => p.Casting)
+                    .HasForeignKey(d => d.OccupationId)
+                    .HasConstraintName("FK__Casting__Occupat__0FEC5ADD");
 
-                entity.Property(e => e.Description)
-                    .IsRequired()
-                    .HasMaxLength(4000)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                entity.HasOne(d => d.Person)
+                    .WithMany(p => p.Casting)
+                    .HasForeignKey(d => d.PersonId)
+                    .HasConstraintName("FK__Casting__PersonI__0E04126B");
             });
 
             modelBuilder.Entity<Film>(entity =>
@@ -64,12 +63,25 @@ namespace CinemaAPI.Infrastructure.Data
                 entity.Property(e => e.Id)
                 .HasColumnName("FilmId");
 
+
+                entity.HasIndex(e => e.Title)
+                    .HasName("UQ_Film")
+                    .IsUnique();
+
+                entity.Property(e => e.BoxOffice).HasColumnType("decimal(20, 1)");
+
+                entity.Property(e => e.Budget).HasColumnType("decimal(20, 1)");
+
                 entity.Property(e => e.Language)
                     .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Rating).HasColumnType("decimal(2, 1)");
+                entity.Property(e => e.PictureReference)
+                    .HasMaxLength(4000)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Score).HasColumnType("decimal(2, 1)");
 
                 entity.Property(e => e.Synopsis)
                     .IsRequired()
@@ -81,46 +93,10 @@ namespace CinemaAPI.Infrastructure.Data
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.AgeRating)
+                entity.HasOne(d => d.Rating)
                     .WithMany(p => p.Film)
-                    .HasForeignKey(d => d.AgeRatingId)
-                    .HasConstraintName("FK__Film__AgeRatingI__078C1F06");
-            });
-
-            modelBuilder.Entity<FilmGenre>(entity =>
-            {
-                entity.ToTable("Film_Genre", "Cinema");
-
-                entity.Property(e => e.Id)
-                .HasColumnName("FilmGenreId");
-
-                entity.HasOne(d => d.Film)
-                    .WithMany(p => p.FilmGenre)
-                    .HasForeignKey(d => d.FilmId)
-                    .HasConstraintName("FK__Film_Genr__FilmI__16CE6296");
-
-                entity.HasOne(d => d.Genre)
-                    .WithMany(p => p.FilmGenre)
-                    .HasForeignKey(d => d.GenreId)
-                    .HasConstraintName("FK__Film_Genr__Genre__17C286CF");
-            });
-
-            modelBuilder.Entity<FilmPerson>(entity =>
-            {
-                entity.ToTable("Film_Person", "Cinema");
-
-                entity.Property(e => e.Id)
-                .HasColumnName("FilmPersonId");
-
-                entity.HasOne(d => d.Film)
-                    .WithMany(p => p.FilmPerson)
-                    .HasForeignKey(d => d.FilmId)
-                    .HasConstraintName("FK__Film_Pers__FilmI__1A9EF37A");
-
-                entity.HasOne(d => d.Person)
-                    .WithMany(p => p.FilmPerson)
-                    .HasForeignKey(d => d.PersonId)
-                    .HasConstraintName("FK__Film_Pers__Perso__1B9317B3");
+                    .HasForeignKey(d => d.RatingId)
+                    .HasConstraintName("FK__Film__RatingId__084B3915");
             });
 
             modelBuilder.Entity<Genre>(entity =>
@@ -130,8 +106,11 @@ namespace CinemaAPI.Infrastructure.Data
                 entity.Property(e => e.Id)
                 .HasColumnName("GenreId");
 
+                entity.HasIndex(e => e.Name)
+                    .HasName("UQ_Genre")
+                    .IsUnique();
+
                 entity.Property(e => e.Description)
-                    .IsRequired()
                     .HasMaxLength(4000)
                     .IsUnicode(false);
 
@@ -139,6 +118,28 @@ namespace CinemaAPI.Infrastructure.Data
                     .IsRequired()
                     .HasMaxLength(600)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Genres>(entity =>
+            {
+                entity.ToTable("Genres", "Cinema");
+
+                entity.Property(e => e.Id)
+                .HasColumnName("GenresId");
+
+                entity.HasIndex(e => new { e.FilmId, e.GenreId })
+                    .HasName("UQ_Genres")
+                    .IsUnique();
+
+                entity.HasOne(d => d.Film)
+                    .WithMany(p => p.Genres)
+                    .HasForeignKey(d => d.FilmId)
+                    .HasConstraintName("FK__Genres__FilmId__13BCEBC1");
+
+                entity.HasOne(d => d.Genre)
+                    .WithMany(p => p.Genres)
+                    .HasForeignKey(d => d.GenreId)
+                    .HasConstraintName("FK__Genres__GenreId__14B10FFA");
             });
 
             modelBuilder.Entity<Occupation>(entity =>
@@ -148,8 +149,11 @@ namespace CinemaAPI.Infrastructure.Data
                 entity.Property(e => e.Id)
                 .HasColumnName("OccupationId");
 
+                entity.HasIndex(e => e.Name)
+                    .HasName("UQ_Occupation")
+                    .IsUnique();
+
                 entity.Property(e => e.Description)
-                    .IsRequired()
                     .HasMaxLength(4000)
                     .IsUnicode(false);
 
@@ -159,6 +163,28 @@ namespace CinemaAPI.Infrastructure.Data
                     .IsUnicode(false);
             });
 
+            modelBuilder.Entity<Occupations>(entity =>
+            {
+                entity.ToTable("Occupations", "Cinema");
+
+                entity.Property(e => e.Id)
+                .HasColumnName("OccupationsId");
+
+                entity.HasIndex(e => new { e.PersonId, e.OccupationId })
+                    .HasName("UQ_Occupations")
+                    .IsUnique();
+
+                entity.HasOne(d => d.Occupation)
+                    .WithMany(p => p.Occupations)
+                    .HasForeignKey(d => d.OccupationId)
+                    .HasConstraintName("FK__Occupatio__Occup__7DCDAAA2");
+
+                entity.HasOne(d => d.Person)
+                    .WithMany(p => p.Occupations)
+                    .HasForeignKey(d => d.PersonId)
+                    .HasConstraintName("FK__Occupatio__Perso__7CD98669");
+            });
+
             modelBuilder.Entity<Person>(entity =>
             {
                 entity.ToTable("Person", "Cinema");
@@ -166,8 +192,11 @@ namespace CinemaAPI.Infrastructure.Data
                 entity.Property(e => e.Id)
                 .HasColumnName("PersonId");
 
+                entity.HasIndex(e => new { e.Firstname, e.Lastname, e.Age })
+                    .HasName("UQ_Person")
+                    .IsUnique();
+
                 entity.Property(e => e.Description)
-                    .IsRequired()
                     .HasMaxLength(4000)
                     .IsUnicode(false);
 
@@ -187,50 +216,74 @@ namespace CinemaAPI.Infrastructure.Data
                     .IsUnicode(false);
 
                 entity.Property(e => e.PictureReference)
-                    .IsRequired()
                     .HasMaxLength(4000)
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<PersonFilmOccupation>(entity =>
+            modelBuilder.Entity<Rating>(entity =>
             {
-                entity.ToTable("Person_Film_Occupation", "Cinema");
+                entity.ToTable("Rating", "Cinema");
 
                 entity.Property(e => e.Id)
-                .HasColumnName("PersonFilmOccupationId");
+                .HasColumnName("RatingId");
 
-                entity.HasOne(d => d.Film)
-                    .WithMany(p => p.PersonFilmOccupation)
-                    .HasForeignKey(d => d.FilmId)
-                    .HasConstraintName("FK__Person_Fi__FilmI__11158940");
+                entity.HasIndex(e => new { e.Code, e.Name })
+                    .HasName("UQ_Rating")
+                    .IsUnique();
 
-                entity.HasOne(d => d.Occupation)
-                    .WithMany(p => p.PersonFilmOccupation)
-                    .HasForeignKey(d => d.OccupationId)
-                    .HasConstraintName("FK__Person_Fi__Occup__1209AD79");
+                entity.Property(e => e.Code)
+                    .IsRequired()
+                    .HasMaxLength(15)
+                    .IsUnicode(false);
 
-                entity.HasOne(d => d.Person)
-                    .WithMany(p => p.PersonFilmOccupation)
-                    .HasForeignKey(d => d.PersonId)
-                    .HasConstraintName("FK__Person_Fi__Perso__10216507");
+                entity.Property(e => e.Description)
+                    .HasMaxLength(4000)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
             });
 
-            modelBuilder.Entity<PersonOccupation>(entity =>
+            modelBuilder.Entity<User>(entity =>
             {
-                entity.ToTable("Person_Occupation", "Cinema");
+                entity.ToTable("User", "Cinema");
 
                 entity.Property(e => e.Id)
-                .HasColumnName("PersonOccupationId");
+                .HasColumnName("UserId");
 
-                entity.HasOne(d => d.Occupation)
-                    .WithMany(p => p.PersonOccupation)
-                    .HasForeignKey(d => d.OccupationId)
-                    .HasConstraintName("FK__Person_Oc__Occup__0D44F85C");
+                entity.HasIndex(e => e.Username)
+                    .HasName("UQ_User")
+                    .IsUnique();
 
-                entity.HasOne(d => d.Person)
-                    .WithMany(p => p.PersonOccupation)
-                    .HasForeignKey(d => d.PersonId)
-                    .HasConstraintName("FK__Person_Oc__Perso__0C50D423");
+                entity.Property(e => e.Firstname)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Lastname)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Username)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Role)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .HasConversion(
+                    x => x.ToString(),
+                    x => (RoleType)Enum.Parse(typeof(RoleType), x)
+                    );
             });
 
             OnModelCreatingPartial(modelBuilder);

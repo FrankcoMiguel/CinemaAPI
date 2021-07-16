@@ -18,6 +18,10 @@ using CinemaAPI.Core.Options;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.IO;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using CinemaAPI.Infrastructure.Options;
 
 namespace CinemaAPI.Api
 {
@@ -48,18 +52,24 @@ namespace CinemaAPI.Api
             });
 
             services.Configure<PaginationOptions>(Configuration.GetSection("Pagination"));
+            services.Configure<PasswordOptions>(Configuration.GetSection("PasswordOptions"));
             services.AddDbContext<CinemaAPIContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Dev")));
 
             //Services
-            services.AddTransient<IAgeRatingService, AgeRatingService>();
+            services.AddTransient<IFilmService, FilmService>();
             services.AddTransient<IGenreService, GenreService>();
-
+            services.AddTransient<IOccupationService, OccupationService>();
+            services.AddTransient<IPersonService, PersonService>();
+            services.AddTransient<IRatingService, RatingService>();
+            services.AddTransient<IUserService, UserService>();
 
 
             //Repository and Unit Of Work
             services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
+            //Password Hasher
+            services.AddSingleton<IPasswordService, PasswordService>();
 
             //Uri
             services.AddSingleton<IUriService>(provider =>
@@ -78,6 +88,28 @@ namespace CinemaAPI.Api
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 doc.IncludeXmlComments(xmlPath);
             });
+
+
+            //JWT Authentication
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = Configuration["Authentication:Issuer"],
+                    ValidAudience = Configuration["Authentication:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Authentication:SecretKey"]))
+                };
+            });
+
 
 
             services.AddMvc(options =>
@@ -110,6 +142,7 @@ namespace CinemaAPI.Api
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

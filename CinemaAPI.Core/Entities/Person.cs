@@ -7,9 +7,8 @@ namespace CinemaAPI.Core.Entities
     {
         public Person()
         {
-            FilmPerson = new HashSet<FilmPerson>();
-            PersonFilmOccupation = new HashSet<PersonFilmOccupation>();
-            PersonOccupation = new HashSet<PersonOccupation>();
+            Casting = new HashSet<Casting>();
+            Occupations = new HashSet<Occupations>();
         }
 
         public string Firstname { get; set; }
@@ -19,8 +18,7 @@ namespace CinemaAPI.Core.Entities
         public string IsActive { get; set; }
         public string PictureReference { get; set; }
 
-        public virtual ICollection<FilmPerson> FilmPerson { get; set; }
-        public virtual ICollection<PersonFilmOccupation> PersonFilmOccupation { get; set; }
-        public virtual ICollection<PersonOccupation> PersonOccupation { get; set; }
+        public virtual ICollection<Casting> Casting { get; set; }
+        public virtual ICollection<Occupations> Occupations { get; set; }
     }
 }
