@@ -14,6 +14,5 @@ namespace CinemaAPI.Core.DTOs
         public decimal? Budget { get; set; }
         public decimal? BoxOffice { get; set; }
         public string PictureReference { get; set; }
-        public virtual Rating Rating { get; set; }
     }
 }
