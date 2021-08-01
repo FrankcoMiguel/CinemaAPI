@@ -22,6 +22,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using CinemaAPI.Infrastructure.Options;
+using CinemaAPI.Infrastructure.Extensions;
 
 namespace CinemaAPI.Api
 {
@@ -51,35 +52,17 @@ namespace CinemaAPI.Api
                 //options.SuppressModelStateInvalidFilter = true;
             });
 
-            services.Configure<PaginationOptions>(Configuration.GetSection("Pagination"));
-            services.Configure<PasswordOptions>(Configuration.GetSection("PasswordOptions"));
-            services.AddDbContext<CinemaAPIContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Dev")));
 
-            //Services
-            services.AddTransient<IFilmService, FilmService>();
-            services.AddTransient<IGenreService, GenreService>();
-            services.AddTransient<IOccupationService, OccupationService>();
-            services.AddTransient<IPersonService, PersonService>();
-            services.AddTransient<IRatingService, RatingService>();
-            services.AddTransient<IUserService, UserService>();
+            //Check Extensions/ServiceCollectionExtension to add a new Option
+            services.AddOptions(Configuration);
 
+            //Check Extensions/ServiceCollectionExtension to add a new DBContext
+            services.AddDbContexts(Configuration);
 
-            //Repository and Unit Of Work
-            services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
-
-            //Password Hasher
-            services.AddSingleton<IPasswordService, PasswordService>();
-
-            //Uri
-            services.AddSingleton<IUriService>(provider =>
-            {
-                var accesor = provider.GetRequiredService<IHttpContextAccessor>();
-                var request = accesor.HttpContext.Request;
-                var absoluteUri = string.Concat(request.Scheme, "://", request.Host.ToUriComponent());
-                return new UriService(absoluteUri);
-            });
+            //Check Extensions/ServiceCollectionExtension to add a new Service
+            services.AddServices();
             
+
             //Swagger Docs
             services.AddSwaggerGen(doc =>
             {
@@ -111,7 +94,6 @@ namespace CinemaAPI.Api
             });
 
 
-
             services.AddMvc(options =>
             {
                 options.Filters.Add<ValidationFilter>();
@@ -141,6 +123,12 @@ namespace CinemaAPI.Api
             });
 
             app.UseRouting();
+
+            app.UseCors(x => x
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .SetIsOriginAllowed(origin => true) // allow any origin
+                .AllowCredentials()); // allow credentials
 
             app.UseAuthentication();
             app.UseAuthorization();

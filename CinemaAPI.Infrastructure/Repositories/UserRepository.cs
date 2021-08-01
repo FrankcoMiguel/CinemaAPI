@@ -13,7 +13,8 @@ namespace CinemaAPI.Infrastructure.Repositories
 
         public async Task<User> GetLoginByCredentials(UserLogin login)
         {
-            return await _entities.FirstOrDefaultAsync(x => x.Username == login.User);
+            var user = await _entities.FirstOrDefaultAsync(x => x.Username.Equals(login.Username));
+            return user;
         }
 
     }

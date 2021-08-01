@@ -15,9 +15,6 @@ namespace CinemaAPI.Infrastructure.Repositories
         private readonly IRatingRepository _ratingRepository;
         private readonly IUserRepository _userRepository;
 
-
-
-
         public UnitOfWork(CinemaAPIContext context)
         {
             _context = context;
