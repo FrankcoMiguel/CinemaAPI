@@ -1,0 +1,262 @@
+body {
+    overflow-x: hidden !important;
+}
+
+.Signin { 
+    width: 100vw;
+    height: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .SigninBox {
+        width: 400px;
+        height: 500px;
+        padding: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background-color: #fff;
+        box-shadow: 0px 1px 4px 1px hsla(204, 35%, 42%, 0.534);
+
+        h1 {
+            font-family: 'Segoe UI';
+            font-size: 35px;
+            font-weight: Bold;
+            color: #000000;
+            text-align: center;
+        }
+
+
+        .SigninForm {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            flex-direction: column;
+            
+            .FieldContainer {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                
+                &:first-child {
+                    padding-right: 20px;
+                }
+
+                .eye {
+                    user-select: none;
+                    cursor: pointer;
+                }
+
+            }
+
+            button {
+                width: 250px;
+                padding: 10px 25px;
+                margin-top: 40px;
+                font-size: 15px;
+                border-radius: 0px;
+                background-color: #FFBA55;
+            }
+
+            a {
+                margin: 25px 0px;
+                font-family: Helvetica;
+                font-size: 14px;
+                color: #000000;
+                user-select: none;
+                text-decoration: none;
+                cursor: pointer;
+
+                &:hover {
+                    transition: 1s;
+                    text-decoration: underline;
+                }
+
+            }
+
+        }
+
+    }
+
+
+    @media screen and (max-width: 670px) and (min-width: 560px) {
+        .SigninBox {
+            width: 380px;
+            height: 480px;
+
+            h1 {
+                font-size: 32px;
+            }
+
+        }
+
+
+
+    }
+
+    @media screen and (max-width: 560px) and (min-width: 500px) {
+        .SigninBox {
+            width: 340px;
+            height: 440px;
+
+            h1 {
+                font-size: 30px;
+            }
+
+        }
+
+    }
+
+    @media screen and (max-width: 500px) and (min-width: 440px) {
+        .SigninBox {
+            width: 320px;
+            height: 440px;
+
+            h1 {
+                font-size: 30px;
+            }
+
+            .SigninForm {
+
+                button {
+                    width: 230px;
+                }
+            }
+
+        }
+
+    }
+
+    @media screen and (max-width: 440px) and (min-width: 400px) {
+        .SigninBox {
+            width: 280px;
+            height: 440px;
+
+            h1 {
+                font-size: 29px;
+            }
+
+            .SigninForm {
+
+                button {
+                    width: 190px;
+                }
+
+                a {
+                    font-size: 13px;
+                }
+            }
+
+        }
+
+    }
+
+    @media screen and (max-width: 400px) and (min-width: 375px) {
+
+        height: 950px;
+
+        .SigninBox {
+            width: 250px;
+            height: 420px;
+
+            h1 {
+                font-size: 27px;
+            }
+
+            .SigninForm {
+
+                .FieldContainer {
+                    &:first-child {
+                        padding-right: 0px;
+                    }
+                }
+
+                button {
+                    width: 170px;
+                }
+
+                a {
+                    font-size: 13px;
+                }
+
+            }
+
+        }
+
+    }
+
+    @media screen and (max-width: 374px) and (min-width: 346px) {
+
+        height: 950px;
+
+        .SigninBox {
+            width: 235px;
+            height: 420px;
+
+            h1 {
+                font-size: 25px;
+            }
+
+            .SigninForm {
+
+                .FieldContainer {
+                    &:first-child {
+                        padding-right: 0px;
+                    }
+                }
+
+                button {
+                    width: 150px;
+                    height: 40px;
+                }
+
+                a {
+                    font-size: 12px;
+                }
+
+            }
+
+        }
+
+    }
+
+    @media screen and (max-width: 345px) {
+
+        height: 950px;
+
+        .SigninBox {
+            width: 205px;
+            height: 360px;
+
+            h1 {
+                font-size: 25px;
+            }
+
+            .SigninForm {
+
+                .FieldContainer {
+                    &:first-child {
+                        padding-right: 0px;
+                    }
+                }
+
+                button {
+                    width: 150px;
+                    height: 40px;
+                }
+
+                a {
+                    font-size: 12px;
+                }
+
+            }
+
+        }
+
+    }
+
+}

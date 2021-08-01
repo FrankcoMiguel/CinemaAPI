@@ -1,4 +1,5 @@
 ﻿using CinemaAPI.Core.Entities;
+using CinemaAPI.Core.Exceptions;
 using CinemaAPI.Core.Interfaces;
 using CinemaAPI.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -45,8 +46,13 @@ namespace CinemaAPI.Api.Controllers
         private async Task<(bool, User)> IsValidUser(UserLogin login)
         {
             var user = await _userService.GetLoginByCredentials(login);
-            var isValid = _passwordService.Check(user.Password, login.Password);
-            return (isValid, user);
+            if (user != null)
+            {
+                var isValid = _passwordService.Check(user.Password, login.Password);
+                return (isValid, user);
+            }
+
+            return (false, user);
         }
 
         private string GenerateToken(User user)

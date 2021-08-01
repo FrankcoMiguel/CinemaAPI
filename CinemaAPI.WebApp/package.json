@@ -1,0 +1,49 @@
+{
+  "name": "CinemaAPI",
+  "private": true,
+  "description": "A Website with a Cinema REST API Endpoints and Authentication",
+  "version": "0.1.0",
+  "license": "0BSD",
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "start": "npm run develop",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.3",
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-brands-svg-icons": "^5.15.3",
+    "@fortawesome/free-regular-svg-icons": "^5.15.3",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@fortawesome/react-fontawesome": "^0.1.14",
+    "@icon/devicons": "^1.8.0-alpha.3",
+    "@material-ui/core": "^4.12.2",
+    "@tippyjs/react": "^4.2.5",
+    "axios": "^0.21.1",
+    "devicon": "^2.12.0",
+    "gatsby": "^3.9.1",
+    "gatsby-cli": "^3.9.0",
+    "gatsby-plugin-fontawesome-css": "^1.1.0",
+    "gatsby-plugin-react-helmet": "^4.9.0",
+    "gatsby-plugin-sass": "^4.9.0",
+    "node-sass": "^6.0.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-helmet": "^6.1.0",
+    "react-icons": "^4.2.0"
+  },
+  "devDependencies": {
+    "prettier": "2.3.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gatsbyjs/gatsby-starter-hello-world"
+  },
+  "bugs": {
+    "url": "https://github.com/gatsbyjs/gatsby/issues"
+  }
+}

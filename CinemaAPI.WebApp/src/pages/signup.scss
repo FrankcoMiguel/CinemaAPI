@@ -1,0 +1,321 @@
+body {
+    overflow-x: hidden !important;
+}
+
+.Signup { 
+    width: 100vw;
+    height: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .SignupBox {
+        width: 580px;
+        height: 560px;
+        padding: 30px;
+        margin-top: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background-color: #fff;
+        box-shadow: 0px 1px 4px 1px hsla(204, 35%, 42%, 0.534);
+
+        h1 {
+            font-family: 'Segoe UI';
+            font-size: 35px;
+            font-weight: Bold;
+            color: #000000;
+            text-align: center;
+        }
+
+        .SignupForm {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            flex-direction: column;
+
+            .SignupRow {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+
+                &:last-child {
+                    justify-content: flex-start;
+                }
+
+                label {
+                    &.Mui-focused {
+                        color: #FFBA55;
+                    }
+                }
+    
+                .MuiFormControl-root {
+                    width: 220px;
+                    padding: 10px 0px;
+                    margin: 0px 14px;
+    
+                    .MuiInput-underline {
+    
+                        &:after {
+                            border-bottom: 2px solid #FFBA55;
+                        }
+                    }
+    
+                }
+    
+            }
+
+            button {
+                width: 250px;
+                padding: 10px 25px;
+                margin-top: 40px;
+                font-size: 15px;
+                border-radius: 0px;
+                background-color: #FFBA55;
+            }
+
+            a {
+                margin: 25px 0px;
+                font-family: Helvetica;
+                font-size: 14px;
+                color: #000000;
+                user-select: none;
+                text-decoration: none;
+                cursor: pointer;
+
+                &:hover {
+                    transition: 1s;
+                    text-decoration: underline;
+                }
+            }
+
+        }
+    }
+
+    @media screen and (max-width: 780px) and (min-width: 670px) {
+
+        .SignupBox {
+            width: 550px;
+            height: 540px;
+
+            h1 {
+                font-size: 33px;
+            }
+
+        }
+
+    }
+
+    @media screen and (max-width: 670px) and (min-width: 620px) {
+
+        .SignupBox {
+            width: 500px;
+            height: 540px;
+
+            h1 {
+                font-size: 31px;
+            }
+
+        }
+
+    }
+
+    @media screen and (max-width: 620px) and (min-width: 565px) {
+
+        .SignupBox {
+            width: 460px;
+            height: 510px;
+
+            h1 {
+                font-size: 30px;
+            }
+
+            .SignupForm {
+
+                button {
+                    width: 210px;
+                    height: 42px;
+                }
+
+                a {
+                    font-size: 13.5px;
+                }
+
+            }
+
+        }
+
+    }
+
+    @media screen and (max-width: 565px) and (min-width: 520px) {
+
+        .SignupBox {
+            width: 410px;
+            height: 490px;
+
+            h1 {
+                font-size: 29px;
+            }
+
+            .SignupForm {
+
+                button {
+                    width: 210px;
+                    height: 42px;
+                }
+
+                a {
+                    font-size: 13.5px;
+                }
+
+                .SignupRow {
+                    .MuiFormControl-root {
+                        width: 180px;
+                        padding: 10px 0px;
+                        margin: 0px 14px;
+                    }
+                }
+            }
+
+        }
+
+    }
+
+    @media screen and (max-width: 520px) and (min-width: 480px) {
+
+        .SignupBox {
+            width: 350px;
+            height: 680px;
+            margin-top: 80px;
+
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .SignupForm {
+
+                .SignupRow {
+                    flex-direction: column;
+                    align-items: flex-start !important;
+                }
+
+                button {
+                    width: 210px;
+                    height: 42px;
+                }
+
+                a {
+                    font-size: 13.5px;
+                }
+
+            }
+
+        }
+
+    }
+
+    @media screen and (max-width: 480px) and (min-width: 400px) {
+
+        .SignupBox {
+            width: 290px;
+            height: 680px;
+            margin-top: 80px;
+
+            h1 {
+                font-size: 27px;
+            }
+
+            
+            .SignupForm {
+
+                .SignupRow {
+                    flex-direction: column;
+                    align-items: flex-start !important;
+                }
+
+                button {
+                    width: 210px;
+                    height: 42px;
+                }
+
+                a {
+                    font-size: 13.5px;
+                }
+
+            }
+
+        }
+
+    }
+
+    @media screen and (max-width: 400px) and (min-width: 350px) {
+
+        .SignupBox {
+            width: 240px;
+            height: 680px;
+            margin-top: 80px;
+
+            h1 {
+                font-size: 25px;
+            }
+
+            .SignupForm {
+
+                .SignupRow {
+                    flex-direction: column;
+                    align-items: flex-start !important;
+                }
+
+                button {
+                    width: 210px;
+                    height: 42px;
+                }
+
+                a {
+                    font-size: 13.5px;
+                }
+
+            }
+
+        }
+
+    }
+
+    @media screen and (max-width: 350px) {
+
+        .SignupBox {
+            width: 210px;
+            height: 680px;
+            margin-top: 80px;
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .SignupForm {
+
+                .SignupRow {
+                    flex-direction: column;
+                    align-items: flex-start !important;
+                }
+
+                button {
+                    width: 210px;
+                    height: 42px;
+                }
+
+                a {
+                    font-size: 13.5px;
+                }
+
+            }
+
+        }
+
+    }
+
+}

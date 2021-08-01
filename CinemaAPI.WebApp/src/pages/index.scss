@@ -1,0 +1,554 @@
+body {
+    overflow-x: hidden !important;
+}
+
+.Home {
+    width: 100vw;
+    height: 1000px;
+    margin-top: 0px;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .HomeTop {
+        width: 90vw;
+        display: flex;
+        padding-left: 60px;
+        justify-content: flex-start;
+        align-items: center;
+        flex-wrap: wrap;
+
+        img {
+            width: 900px;
+            height: auto;
+        }
+
+        .HomeTopRight {
+
+            margin-left: 100px;
+
+            h1 {
+                font-family: 'Segoe UI';
+                font-size: 50px;
+                font-weight: bold;
+                color: #000000;
+            }
+
+            p {
+                width: 600px;
+                font-family: 'Segoe UI';
+                font-size: 20px;
+                font-weight: 550;
+                color: #000000;
+            }
+
+            a {
+
+                text-decoration: none;
+
+                button {
+                    padding: 8px 30px;
+                    margin-top: 20px;
+                    font-size: 17px;
+                    background-color: #FFBA55;
+                    border-radius: 0px;
+                    text-transform: none;
+                }   
+            }
+
+        }
+
+    }
+
+
+    @media screen and (max-width: 1780px) and (min-width: 1460px) {
+        
+        .HomeTop {
+
+            img {
+                width: 700px;
+            }
+
+            .HomeTopRight {
+
+                h1 {
+                    font-size: 46px;
+                }
+    
+                p {
+                    width: 500px;
+                    font-size: 18px;
+                }
+    
+                a {
+    
+                    button {
+                        font-size: 15px;
+                    }   
+                }
+
+            }
+
+        }
+
+    }
+
+    @media screen and (max-width: 1459px) and (min-width: 1250px) {
+        
+        .HomeTop {
+
+            img {
+                width: 600px;
+            }
+
+            .HomeTopRight {
+
+                h1 {
+                    font-size: 40px;
+                }
+    
+                p {
+                    width: 400px;
+                    font-size: 18px;
+                }
+    
+                a {
+    
+                    button {
+                        font-size: 15px;
+                    }   
+                }
+
+            }
+
+        }
+
+    }
+
+    @media screen and (max-width: 1250px) and (min-width: 1150px) {
+
+        height: 900px;
+        
+        .HomeTop {
+
+            img {
+                width: 500px;
+            }
+
+            .HomeTopRight {
+
+                h1 {
+                    font-size: 36px;
+                }
+    
+                p {
+                    width: 360px;
+                    font-size: 17px;
+                }
+    
+                a {
+    
+                    button {
+                        font-size: 15px;
+                    }   
+                }
+
+            }
+
+        }
+
+    }
+
+    @media screen and (max-width: 1150px) and (min-width: 850px) {
+        
+        height: 1300px;
+
+        .HomeTop {
+            
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            flex-direction: column;
+            padding-left: 0px;
+            margin-top: 0px;
+
+            img {
+                width: 600px;
+            }
+
+            .HomeTopRight {
+
+                margin-left: 0px;
+                padding-top: 80px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+
+                h1 {
+                    font-size: 38px;
+                }
+    
+                p {
+                    width: 530px;
+                    font-size: 20px;
+                    text-align: center;
+                }
+    
+                a {
+    
+                    button {
+                        font-size: 18px;
+                    }   
+                }
+
+            }
+
+        }
+
+    }
+
+    @media screen and (max-width: 850px) and (min-width: 700px) {
+        
+        height: 1200px;
+
+        .HomeTop {
+            
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            flex-direction: column;
+            padding-left: 0px;
+            margin-top: 0px;
+
+            img {
+                width: 550px;
+            }
+
+            .HomeTopRight {
+
+                margin-left: 0px;
+                padding-top: 80px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+
+                h1 {
+                    font-size: 34px;
+                }
+    
+                p {
+                    width: 530px;
+                    font-size: 18px;
+                    text-align: center;
+                }
+    
+                a {
+    
+                    button {
+                        font-size: 16px;
+                    }   
+                }
+
+            }
+
+        }
+
+    }
+
+    @media screen and (max-width: 700px) and (min-width: 550px) {
+        
+        height: 1200px;
+
+        .HomeTop {
+            
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            flex-direction: column;
+            padding-left: 0px;
+            margin-top: 0px;
+
+            img {
+                width: 460px;
+            }
+
+            .HomeTopRight {
+
+                margin-left: 0px;
+                padding-top: 80px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+
+                h1 {
+                    font-size: 34px;
+                }
+    
+                p {
+                    width: 450px;
+                    font-size: 18px;
+                    text-align: center;
+                }
+    
+                a {
+    
+                    button {
+                        font-size: 15px;
+                    }   
+                }
+
+            }
+
+        }
+
+    }
+
+    @media screen and (max-width: 550px) and (min-width: 470px) {
+        
+        height: 1200px;
+
+        .HomeTop {
+            
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            flex-direction: column;
+            padding-left: 0px;
+            margin-top: 0px;
+
+            img {
+                width: 400px;
+            }
+
+            .HomeTopRight {
+
+                margin-left: 0px;
+                padding-top: 60px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+
+                h1 {
+                    font-size: 30px;
+                }
+    
+                p {
+                    width: 400px;
+                    font-size: 17.5px;
+                    text-align: center;
+                }
+    
+                a {
+    
+                    button {
+                        font-size: 15px;
+                    }   
+                }
+
+            }
+
+        }
+
+    }
+
+    @media screen and (max-width: 470px) and (min-width: 425px) {
+        
+        height: 1200px;
+
+        .HomeTop {
+            
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            flex-direction: column;
+            padding-left: 0px;
+            margin-top: 0px;
+
+            img {
+                width: 360px;
+            }
+
+            .HomeTopRight {
+
+                margin-left: 0px;
+                padding-top: 60px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+
+                h1 {
+                    font-size: 29px;
+                }
+    
+                p {
+                    width: 360px;
+                    font-size: 16.5px;
+                    text-align: center;
+                }
+    
+                a {
+    
+                    button {
+                        font-size: 15px;
+                    }   
+                }
+
+            }
+
+        }
+
+    }
+
+    @media screen and (max-width: 425px) and (min-width: 375px) {
+        
+        height: 1150px;
+
+        .HomeTop {
+            
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            flex-direction: column;
+            padding-left: 0px;
+            margin-top: 0px;
+
+            img {
+                width: 340px;
+            }
+
+            .HomeTopRight {
+
+                margin-left: 0px;
+                padding-top: 80px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+
+                h1 {
+                    font-size: 28px;
+                }
+    
+                p {
+                    width: 300px;
+                    font-size: 16px;
+                }
+    
+                a {
+    
+                    button {
+                        font-size: 15px;
+                    }   
+                }
+
+            }
+
+        }
+
+    }
+
+    
+    @media screen and (max-width: 375px) and (min-width: 340px) {
+        
+        height: 1100px;
+
+        .HomeTop {
+            
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            flex-direction: column;
+            padding-left: 0px;
+            margin-top: 0px;
+
+            img {
+                width: 300px;
+            }
+
+            .HomeTopRight {
+
+                margin-left: 0px;
+                padding-top: 60px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+
+                h1 {
+                    font-size: 27px;
+                }
+    
+                p {
+                    width: 290px;
+                    font-size: 16px;
+                }
+    
+                a {
+    
+                    button {
+                        font-size: 15px;
+                    }   
+                }
+
+            }
+
+        }
+
+    }
+
+    @media screen and (max-width: 340px) {
+        
+        height: 1100px;
+
+        .HomeTop {
+            
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            flex-direction: column;
+            padding-left: 0px;
+            margin-top: 0px;
+
+            img {
+                width: 280px;
+            }
+
+            .HomeTopRight {
+
+                margin-left: 0px;
+                padding-top: 60px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+
+                h1 {
+                    font-size: 25px;
+                }
+    
+                p {
+                    width: 250px;
+                    font-size: 16px;
+                    text-align: center;
+                }
+    
+                a {
+    
+                    button {
+                        font-size: 15px;
+                    }   
+                }
+
+            }
+
+        }
+
+    }
+  
+}

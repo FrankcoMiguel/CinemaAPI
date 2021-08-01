@@ -1,0 +1,80 @@
+footer {
+    position: relative;
+    bottom: 0;
+    width: 100vw;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: Helvetica;
+    align-items: center;
+    margin-top: 40px;
+    margin-bottom: 30px;
+
+    p {
+        font-size: 13px;
+        margin-bottom: 3px;
+        font-weight: 550;
+        color: #312d2a;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .Row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        p {
+            margin-left: 5px;
+            margin-right: 5px;
+            margin-top: 0px;
+        }
+
+
+        svg {
+            height: auto;
+            color: #ce2828;
+            animation-name: heartEffect;
+            animation-duration: 450ms;
+            animation-iteration-count: infinite;
+            animation-direction: alternate-reverse;
+
+            @keyframes heartEffect {
+                from {
+                    width: 9px;
+                    height: 9px;
+                }
+
+                to {
+                    width: 17px;
+                    height: 17px;
+                }
+            }
+
+        }
+
+        .Technologies {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            a {
+                margin-top: 2px;
+                margin-left: 2px;
+                text-decoration: none;
+    
+                i {
+                    font-size: 25px;
+                }
+    
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+        }
+
+    }
+
+}

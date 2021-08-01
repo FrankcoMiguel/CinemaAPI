@@ -37,10 +37,16 @@ namespace CinemaAPI.Api.Controllers
         public async Task<IActionResult> GetFilm(int id)
         {
             var film = await _filmService.GetFilm(id);
-            var filmDto = _mapper.Map<FilmDTO>(film);
 
-            var response = new ApiResponse<FilmDTO>(filmDto);
-            return Ok(response);
+            if (film != null)
+            {
+                var filmDto = _mapper.Map<FilmDTO>(film);
+
+                var response = new ApiResponse<FilmDTO>(filmDto);
+                return Ok(response);
+            }
+
+            return NotFound();
         }
 
         /// <summary>

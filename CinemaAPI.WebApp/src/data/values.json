@@ -1,0 +1,18 @@
+[
+    {
+        "id": 1,
+        "name": "Roles",
+        "items": [
+            {
+                "id": 1,
+                "display": "Consumer",
+                "value": 2
+            },
+            {
+                "id": 2,
+                "display": "Provider",
+                "value": 1
+            }
+        ]
+    }
+]
