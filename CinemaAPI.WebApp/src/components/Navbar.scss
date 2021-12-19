@@ -1,7 +1,7 @@
 nav {
     position: fixed;
     width: 100vw;
-    height: 140px;
+    height: 100px;
     top: 0;
     background-color: hsl(0, 0%, 100%);
     z-index: 10;
@@ -13,7 +13,7 @@ nav {
     justify-content: space-between;
     align-items: center;
     margin: 0px 70px 0px 35px;
-    height: 140px;
+    height: 100px;
 
     .NavLogo {
         width: 70px;
@@ -110,7 +110,6 @@ nav {
 @media screen and (max-width: 670px) and (min-width: 400px) {
 
     .NavContainer {
-        display: flex;
         position: fixed;
         flex-direction: column;
         justify-content: flex-start;
@@ -125,10 +124,10 @@ nav {
             align-items: center;
             justify-content: space-between;
             background-color: #ffffff;
-            padding: 30px 60px;
+            padding: 15px 60px;
 
             .NavLogo {
-                width: 72px;
+                width: 70px;
                 height: auto;
                 margin-left: 50px;
             }
@@ -219,7 +218,7 @@ nav {
             align-items: center;
             justify-content: space-between;
             background-color: #ffffff;
-            padding: 30px 60px;
+            padding: 15px 60px;
 
             .NavLogo {
                 width: 72px;

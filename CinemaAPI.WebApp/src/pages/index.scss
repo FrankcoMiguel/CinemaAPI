@@ -1,11 +1,13 @@
+
 body {
     overflow-x: hidden !important;
+    margin: 0;
 }
 
 .Home {
     width: 100vw;
     height: 1000px;
-    margin-top: 0px;
+    margin-top: -40px;
     background-repeat: no-repeat;
     display: flex;
     justify-content: center;
@@ -29,7 +31,7 @@ body {
             margin-left: 100px;
 
             h1 {
-                font-family: 'Segoe UI';
+                font-family: 'Cabin';
                 font-size: 50px;
                 font-weight: bold;
                 color: #000000;
@@ -37,7 +39,7 @@ body {
 
             p {
                 width: 600px;
-                font-family: 'Segoe UI';
+                font-family: 'Cabin';
                 font-size: 20px;
                 font-weight: 550;
                 color: #000000;
@@ -51,7 +53,9 @@ body {
                     padding: 8px 30px;
                     margin-top: 20px;
                     font-size: 17px;
-                    background-color: #FFBA55;
+                    background-color: #fcaf3b;
+                    color: #fff;
+                    font-weight: bold;
                     border-radius: 0px;
                     text-transform: none;
                 }   

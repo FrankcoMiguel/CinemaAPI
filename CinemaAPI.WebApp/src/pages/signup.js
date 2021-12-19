@@ -29,7 +29,7 @@ export default function Signup() {
 
     const saveUser = async (user) => {
         
-        if (user.password == user.confirmPassword) {
+        if (user.password === user.confirmPassword) {
             const token = await getToken("franco.js", "123")
             const response = await api.post('/user', 
             {

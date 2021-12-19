@@ -13,7 +13,7 @@ body {
         width: 580px;
         height: 560px;
         padding: 30px;
-        margin-top: 60px;
+        margin-top: -80px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -22,7 +22,7 @@ body {
         box-shadow: 0px 1px 4px 1px hsla(204, 35%, 42%, 0.534);
 
         h1 {
-            font-family: 'Segoe UI';
+            font-family: 'Cabin';
             font-size: 35px;
             font-weight: Bold;
             color: #000000;
@@ -79,7 +79,7 @@ body {
 
             a {
                 margin: 25px 0px;
-                font-family: Helvetica;
+                font-family: 'Cabin';
                 font-size: 14px;
                 color: #000000;
                 user-select: none;
