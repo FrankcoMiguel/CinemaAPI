@@ -1,0 +1,303 @@
+@import './variables';
+
+// ===================
+// CSS RESET & BASE
+// ===================
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: $font-body;
+  font-size: $text-base;
+  font-weight: $font-regular;
+  line-height: $leading-normal;
+  color: $gray-100;
+  background-color: $dark;
+  overflow-x: hidden;
+}
+
+// ===================
+// TYPOGRAPHY BASE
+// ===================
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-display;
+  font-weight: $font-bold;
+  line-height: $leading-tight;
+  letter-spacing: $tracking-tight;
+  color: $white;
+}
+
+h1 {
+  font-size: clamp($text-4xl, 5vw, $text-6xl);
+  font-weight: $font-extrabold;
+}
+
+h2 {
+  font-size: clamp($text-2xl, 4vw, $text-4xl);
+}
+
+h3 {
+  font-size: clamp($text-xl, 3vw, $text-2xl);
+}
+
+h4 {
+  font-size: $text-xl;
+}
+
+h5 {
+  font-size: $text-lg;
+}
+
+h6 {
+  font-size: $text-base;
+}
+
+p {
+  color: $gray-300;
+  line-height: $leading-relaxed;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color $transition-base;
+}
+
+strong {
+  font-weight: $font-semibold;
+}
+
+code {
+  font-family: $font-mono;
+  font-size: 0.9em;
+  background: rgba($white, 0.1);
+  padding: 0.2em 0.4em;
+  border-radius: $radius-sm;
+}
+
+pre {
+  font-family: $font-mono;
+  background: $gray-900;
+  padding: $space-4;
+  border-radius: $radius-md;
+  overflow-x: auto;
+  
+  code {
+    background: none;
+    padding: 0;
+  }
+}
+
+// ===================
+// UTILITY CLASSES
+// ===================
+
+.text-gradient {
+  @include text-gradient;
+}
+
+.text-primary {
+  color: $primary;
+}
+
+.text-accent {
+  color: $accent;
+}
+
+.text-muted {
+  color: $gray-400;
+}
+
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 $space-6;
+  
+  @include respond-to(md) {
+    padding: 0 $space-4;
+  }
+}
+
+.section {
+  padding: $space-24 0;
+  
+  @include respond-to(md) {
+    padding: $space-16 0;
+  }
+}
+
+// ===================
+// BUTTON STYLES
+// ===================
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  font-family: $font-body;
+  font-size: $text-base;
+  font-weight: $font-semibold;
+  text-decoration: none;
+  padding: $space-3 $space-6;
+  border-radius: $radius-md;
+  border: none;
+  cursor: pointer;
+  transition: all $transition-base;
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  &--primary {
+    @include button-primary;
+  }
+  
+  &--accent {
+    @include button-accent;
+  }
+  
+  &--outline {
+    @include button-outline;
+  }
+  
+  &--lg {
+    padding: $space-4 $space-8;
+    font-size: $text-lg;
+  }
+  
+  &--sm {
+    padding: $space-2 $space-4;
+    font-size: $text-sm;
+  }
+}
+
+// ===================
+// CARD STYLES
+// ===================
+
+.card {
+  @include card;
+  padding: $space-6;
+}
+
+// ===================
+// FORM ELEMENTS
+// ===================
+
+input, textarea, select {
+  font-family: $font-body;
+  font-size: $text-base;
+  color: $white;
+  background: $gray-800;
+  border: 1px solid $gray-700;
+  border-radius: $radius-md;
+  padding: $space-3 $space-4;
+  transition: all $transition-base;
+  
+  &:focus {
+    outline: none;
+    border-color: $primary;
+    box-shadow: 0 0 0 3px rgba($primary, 0.2);
+  }
+  
+  &::placeholder {
+    color: $gray-500;
+  }
+}
+
+// ===================
+// SCROLLBAR
+// ===================
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: $gray-900;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $gray-700;
+  border-radius: $radius-full;
+  
+  &:hover {
+    background: $gray-600;
+  }
+}
+
+// ===================
+// SELECTION
+// ===================
+
+::selection {
+  background: rgba($primary, 0.3);
+  color: $white;
+}
+
+// ===================
+// ANIMATIONS
+// ===================
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.animate-pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}

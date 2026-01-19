@@ -1,0 +1,250 @@
+.Dashboard {
+    min-height: 100vh;
+    padding: 40px 60px;
+    background: #f5f7fa;
+
+    .DashboardLoading {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 60vh;
+
+        .Spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #e9ecef;
+            border-top-color: #fcaf3b;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        p {
+            margin-top: 20px;
+            font-family: 'Cabin', sans-serif;
+            color: #7f8c8d;
+        }
+    }
+
+    .DashboardHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 40px;
+
+        .HeaderLeft {
+            h1 {
+                font-family: 'Cabin', sans-serif;
+                font-size: 36px;
+                color: #2c3e50;
+                margin: 0 0 8px 0;
+            }
+
+            p {
+                font-family: 'Cabin', sans-serif;
+                font-size: 16px;
+                color: #7f8c8d;
+                margin: 0;
+            }
+        }
+    }
+
+    .StatsGrid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+        margin-bottom: 40px;
+
+        .StatCard {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid;
+            transition: transform 0.2s, box-shadow 0.2s;
+
+            &:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            }
+
+            .StatIcon {
+                font-size: 40px;
+                opacity: 0.9;
+            }
+
+            .StatInfo {
+                h3 {
+                    font-family: 'Cabin', sans-serif;
+                    font-size: 32px;
+                    color: #2c3e50;
+                    margin: 0 0 4px 0;
+                }
+
+                p {
+                    font-family: 'Cabin', sans-serif;
+                    font-size: 14px;
+                    color: #7f8c8d;
+                    margin: 0;
+                }
+            }
+        }
+    }
+
+    .DataSection {
+        background: white;
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+
+        .SectionHeader {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+
+            h2 {
+                font-family: 'Cabin', sans-serif;
+                font-size: 24px;
+                color: #2c3e50;
+                margin: 0;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+        }
+
+        .TableLoading {
+            text-align: center;
+            padding: 40px;
+            color: #7f8c8d;
+            font-family: 'Cabin', sans-serif;
+        }
+
+        .NoData {
+            text-align: center;
+            padding: 60px 40px;
+            color: #7f8c8d;
+
+            svg {
+                font-size: 64px;
+                opacity: 0.3;
+                margin-bottom: 16px;
+            }
+
+            p {
+                font-family: 'Cabin', sans-serif;
+                font-size: 16px;
+                margin: 0;
+            }
+        }
+
+        .DataTable {
+            overflow-x: auto;
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+
+                th, td {
+                    padding: 14px 16px;
+                    text-align: left;
+                    font-family: 'Cabin', sans-serif;
+                }
+
+                th {
+                    background: #f8f9fa;
+                    color: #2c3e50;
+                    font-weight: 600;
+                    font-size: 14px;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                    border-bottom: 2px solid #e9ecef;
+                }
+
+                td {
+                    color: #5d6d7e;
+                    font-size: 15px;
+                    border-bottom: 1px solid #e9ecef;
+                }
+
+                tr:hover td {
+                    background: #f8f9fa;
+                }
+
+                .Actions {
+                    display: flex;
+                    gap: 8px;
+
+                    button {
+                        background: none;
+                        border: none;
+                        padding: 8px;
+                        cursor: pointer;
+                        border-radius: 6px;
+                        color: #3498db;
+                        font-size: 16px;
+                        transition: background 0.2s, color 0.2s;
+
+                        &:hover {
+                            background: #3498db;
+                            color: white;
+                        }
+
+                        &.delete {
+                            color: #e74c3c;
+
+                            &:hover {
+                                background: #e74c3c;
+                                color: white;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .DialogForm {
+        padding-top: 8px;
+    }
+
+    @media screen and (max-width: 1200px) {
+        .StatsGrid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        padding: 20px;
+
+        .DashboardHeader {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .StatsGrid {
+            grid-template-columns: 1fr;
+        }
+
+        .DataSection {
+            padding: 20px;
+
+            .SectionHeader {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+        }
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

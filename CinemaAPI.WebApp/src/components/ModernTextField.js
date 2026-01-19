@@ -1,8 +1,7 @@
 import React from 'react'
 import "./ModernTextField.scss"
 
-import TextField from '@material-ui/core/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import { TextField, InputAdornment } from '@mui/material';
 
 const ModernTextField = ({children, label, type, secondElement, onChange}) => {
     return (

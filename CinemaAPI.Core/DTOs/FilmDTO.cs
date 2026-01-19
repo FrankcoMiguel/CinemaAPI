@@ -4,6 +4,7 @@ namespace CinemaAPI.Core.DTOs
 {
     public class FilmDTO
     {
+        public int Id { get; set; }
         public string Title { get; set; }
         public string Synopsis { get; set; }
         public int ReleaseYear { get; set; }

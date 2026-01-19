@@ -5,6 +5,7 @@ namespace CinemaAPI.Core.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
+        ICastingRepository CastingRepository { get; }
         IFilmRepository FilmRepository { get; }
         IGenreRepository GenreRepository { get; }
         IOccupationRepository OccupationRepository { get; }

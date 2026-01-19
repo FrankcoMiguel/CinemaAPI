@@ -29,31 +29,36 @@ namespace CinemaAPI.Infrastructure.Services
             var salt = Convert.FromBase64String(parts[1]);
             var key = Convert.FromBase64String(parts[2]);
 
-            using (var algorithm = new Rfc2898DeriveBytes(
+            var keyToCheck = Rfc2898DeriveBytes.Pbkdf2(
                 password,
                 salt,
-                iterations
-                ))
-            {
-                var keyToCheck = algorithm.GetBytes(_options.KeySize);
-                return keyToCheck.SequenceEqual(key);
-            }
+                iterations,
+                HashAlgorithmName.SHA256,
+                _options.KeySize);
+
+            return keyToCheck.SequenceEqual(key);
         }
 
         public string Hash(string password)
         {
             //PBKDF2 Implementation
-            using (var algorithm = new Rfc2898DeriveBytes(
-                password,
-                _options.SaltSize,
-                _options.Iterations
-                ))
+            var salt = new byte[_options.SaltSize];
+            using (var rng = RandomNumberGenerator.Create())
             {
-                var key = Convert.ToBase64String(algorithm.GetBytes(_options.KeySize));
-                var salt = Convert.ToBase64String(algorithm.Salt);
-
-                return $"{_options.Iterations}.{salt}.{key}";
+                rng.GetBytes(salt);
             }
+
+            var key = Rfc2898DeriveBytes.Pbkdf2(
+                password,
+                salt,
+                _options.Iterations,
+                HashAlgorithmName.SHA256,
+                _options.KeySize);
+
+            var keyBase64 = Convert.ToBase64String(key);
+            var saltBase64 = Convert.ToBase64String(salt);
+
+            return $"{_options.Iterations}.{saltBase64}.{keyBase64}";
         }
     }
 }

@@ -37,7 +37,7 @@ namespace CinemaAPI.Infrastructure.Data
                 .HasColumnName("CastingId");
 
                 entity.HasIndex(e => new { e.PersonId, e.FilmId, e.OccupationId })
-                    .HasName("UQ_Casting")
+                    .HasDatabaseName("UQ_Casting")
                     .IsUnique();
 
                 entity.HasOne(d => d.Film)
@@ -65,7 +65,7 @@ namespace CinemaAPI.Infrastructure.Data
 
 
                 entity.HasIndex(e => e.Title)
-                    .HasName("UQ_Film")
+                    .HasDatabaseName("UQ_Film")
                     .IsUnique();
 
                 entity.Property(e => e.BoxOffice).HasColumnType("decimal(20, 1)");
@@ -107,7 +107,7 @@ namespace CinemaAPI.Infrastructure.Data
                 .HasColumnName("GenreId");
 
                 entity.HasIndex(e => e.Name)
-                    .HasName("UQ_Genre")
+                    .HasDatabaseName("UQ_Genre")
                     .IsUnique();
 
                 entity.Property(e => e.Description)
@@ -128,7 +128,7 @@ namespace CinemaAPI.Infrastructure.Data
                 .HasColumnName("GenresId");
 
                 entity.HasIndex(e => new { e.FilmId, e.GenreId })
-                    .HasName("UQ_Genres")
+                    .HasDatabaseName("UQ_Genres")
                     .IsUnique();
 
                 entity.HasOne(d => d.Film)
@@ -150,7 +150,7 @@ namespace CinemaAPI.Infrastructure.Data
                 .HasColumnName("OccupationId");
 
                 entity.HasIndex(e => e.Name)
-                    .HasName("UQ_Occupation")
+                    .HasDatabaseName("UQ_Occupation")
                     .IsUnique();
 
                 entity.Property(e => e.Description)
@@ -171,7 +171,7 @@ namespace CinemaAPI.Infrastructure.Data
                 .HasColumnName("OccupationsId");
 
                 entity.HasIndex(e => new { e.PersonId, e.OccupationId })
-                    .HasName("UQ_Occupations")
+                    .HasDatabaseName("UQ_Occupations")
                     .IsUnique();
 
                 entity.HasOne(d => d.Occupation)
@@ -193,7 +193,7 @@ namespace CinemaAPI.Infrastructure.Data
                 .HasColumnName("PersonId");
 
                 entity.HasIndex(e => new { e.Firstname, e.Lastname, e.Age })
-                    .HasName("UQ_Person")
+                    .HasDatabaseName("UQ_Person")
                     .IsUnique();
 
                 entity.Property(e => e.Description)
@@ -228,7 +228,7 @@ namespace CinemaAPI.Infrastructure.Data
                 .HasColumnName("RatingId");
 
                 entity.HasIndex(e => new { e.Code, e.Name })
-                    .HasName("UQ_Rating")
+                    .HasDatabaseName("UQ_Rating")
                     .IsUnique();
 
                 entity.Property(e => e.Code)
@@ -254,7 +254,7 @@ namespace CinemaAPI.Infrastructure.Data
                 .HasColumnName("UserId");
 
                 entity.HasIndex(e => e.Username)
-                    .HasName("UQ_User")
+                    .HasDatabaseName("UQ_User")
                     .IsUnique();
 
                 entity.Property(e => e.Firstname)

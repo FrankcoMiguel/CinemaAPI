@@ -1,119 +1,276 @@
 import React, { useState } from "react"
+import { navigate, Link } from "gatsby"
 import Layout from "../components/Layout"
 import "./signup.scss"
 
-import { TextField, Button } from '@material-ui/core'
-import { HiEye, HiEyeOff } from 'react-icons/hi'
-import { Link } from "gatsby"
+import { Button, TextField, InputAdornment, IconButton, Alert, CircularProgress } from '@mui/material'
+import { FaUser, FaLock, FaEye, FaEyeSlash, FaFilm, FaEnvelope } from 'react-icons/fa'
 
 import api from '../data/api'
-import values from '../data/values.json'
-import CustomSelect from "../components/CustomSelect";
-import PasswordField from "../components/PasswordField";
+import { useAuth } from '../context/AuthContext'
 
 
 export default function Signup() {
 
-    const [user, setUser] = useState({firstname: '', lastname: '', username: '', password: '', confirmPassword: '', role: 2})
-    const [pass, showPass] = useState(false)
+    const { login } = useAuth()
+    const [formData, setFormData] = useState({
+        firstname: '',
+        lastname: '',
+        username: '',
+        password: '',
+        confirmPassword: '',
+        role: 2
+    })
+    const [showPassword, setShowPassword] = useState(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(null)
+    const [success, setSuccess] = useState(false)
 
-    const getToken = async (username, password) => {
-
-        const response = await api.post('/token', {
-            "username": `${username}`,
-            "password": `${password}`
-        })
-
-        return response.data.token
-    }
-
-    const saveUser = async (user) => {
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        setLoading(true)
+        setError(null)
         
-        if (user.password === user.confirmPassword) {
-            const token = await getToken("franco.js", "123")
-            const response = await api.post('/user', 
-            {
-                "firstname": `${user.firstname}`,
-                "lastname": `${user.lastname}`,
-                "username": `${user.username}`,
-                "password": `${user.password}`,
-                "role": user.role
-            },
-            {
+        if (formData.password !== formData.confirmPassword) {
+            setError('Passwords do not match')
+            setLoading(false)
+            return
+        }
+
+        if (formData.password.length < 6) {
+            setError('Password must be at least 6 characters')
+            setLoading(false)
+            return
+        }
+
+        try {
+            // First, get a token to create the user (using admin credentials)
+            const tokenResponse = await api.post('/token', {
+                "username": "franco.js",
+                "password": "123"
+            })
+            
+            // Create the user account
+            await api.post('/user', {
+                "firstname": formData.firstname,
+                "lastname": formData.lastname,
+                "username": formData.username,
+                "password": formData.password,
+                "role": formData.role
+            }, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization' : `Bearer ${token}`
+                    'Authorization': `Bearer ${tokenResponse.data.token}`
                 }
             })
-
-            console.log(response.data)
-
-        } else {
-            alert('Password validation failed')
+            
+            // Now login with the new user credentials
+            const loginResponse = await api.post('/token', {
+                "username": formData.username,
+                "password": formData.password
+            })
+            
+            setSuccess(true)
+            
+            // Auto-login and redirect to dashboard
+            setTimeout(() => {
+                login({ 
+                    username: formData.username,
+                    firstname: formData.firstname,
+                    lastname: formData.lastname
+                }, loginResponse.data.token)
+                navigate('/dashboard')
+            }, 1500)
+            
+        } catch (err) {
+            setError(err.response?.data?.message || 'Registration failed. Please try again.')
+        } finally {
+            setLoading(false)
         }
     }
 
     return (
-        <Layout title="Cinema API | Sign up" page={4}>
-            <div className="Signup">
-                <div className="SignupBox">
-                    <h1>Sign up</h1>
-                    <form className="SignupForm" onSubmit={() => {saveUser(user)}}>
-                        <div className="SignupRow">
-                            <TextField 
-                                id="standard-basic" 
-                                label="Firstname" 
-                                type="text"
-                                required 
-                                onChange={e => setUser({...user, firstname: e.target.value})}/>
+        <Layout title="Cinema API | Sign up" page={4} hideFooter={true}>
+            <div className="AuthPage">
+                <div className="AuthContainer signup">
+                    <div className="AuthDecor">
+                        <div className="DecorContent">
+                            <h2>Join Cinema API</h2>
+                            <p>Create your account and start building amazing entertainment applications today.</p>
+                            <ul className="DecorFeatures">
+                                <li>Free tier with 1000 requests/day</li>
+                                <li>Full API documentation</li>
+                                <li>Community support</li>
+                                <li>No credit card required</li>
+                            </ul>
+                        </div>
+                    </div>
 
-                            <TextField 
-                                id="standard-basic" 
-                                label="Lastname" 
-                                type="text"
-                                required 
-                                onChange={e => setUser({...user, lastname: e.target.value})}/>
+                    <div className="AuthCard">
+                        <div className="AuthHeader">
+                            <div className="AuthLogo">
+                                <FaFilm />
+                            </div>
+                            <h1>Create Account</h1>
+                            <p>Get started with Cinema API for free</p>
                         </div>
 
-                        <div className="SignupRow">
-                            <TextField 
-                                id="standard-basic" 
-                                label="Username" 
-                                type="text"
-                                required 
-                                onChange={e => setUser({...user, username: e.target.value})}/>
+                        {error && (
+                            <Alert severity="error" className="AuthAlert">
+                                {error}
+                            </Alert>
+                        )}
 
-                            <CustomSelect 
-                                label="Role"
-                                value={user.role}
-                                onChange={e => setUser({...user, role: e.target.value})}
-                                items={values[0].items} />
+                        {success && (
+                            <Alert severity="success" className="AuthAlert">
+                                Account created successfully! Redirecting to dashboard...
+                            </Alert>
+                        )}
+
+                        <form className="AuthForm" onSubmit={handleSubmit}>
+                            <div className="FormRow">
+                                <div className="FormField">
+                                    <TextField
+                                        fullWidth
+                                        label="First Name"
+                                        variant="outlined"
+                                        value={formData.firstname}
+                                        onChange={(e) => setFormData({...formData, firstname: e.target.value})}
+                                        required
+                                        InputProps={{
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    <FaUser className="FieldIcon" />
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                    />
+                                </div>
+
+                                <div className="FormField">
+                                    <TextField
+                                        fullWidth
+                                        label="Last Name"
+                                        variant="outlined"
+                                        value={formData.lastname}
+                                        onChange={(e) => setFormData({...formData, lastname: e.target.value})}
+                                        required
+                                        InputProps={{
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    <FaUser className="FieldIcon" />
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="FormField">
+                                <TextField
+                                    fullWidth
+                                    label="Username"
+                                    variant="outlined"
+                                    value={formData.username}
+                                    onChange={(e) => setFormData({...formData, username: e.target.value})}
+                                    required
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <FaEnvelope className="FieldIcon" />
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                />
+                            </div>
+
+                            <div className="FormRow">
+                                <div className="FormField">
+                                    <TextField
+                                        fullWidth
+                                        label="Password"
+                                        variant="outlined"
+                                        type={showPassword ? 'text' : 'password'}
+                                        value={formData.password}
+                                        onChange={(e) => setFormData({...formData, password: e.target.value})}
+                                        required
+                                        InputProps={{
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    <FaLock className="FieldIcon" />
+                                                </InputAdornment>
+                                            ),
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <IconButton
+                                                        onClick={() => setShowPassword(!showPassword)}
+                                                        edge="end"
+                                                        className="TogglePassword"
+                                                    >
+                                                        {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                    />
+                                </div>
+
+                                <div className="FormField">
+                                    <TextField
+                                        fullWidth
+                                        label="Confirm Password"
+                                        variant="outlined"
+                                        type={showConfirmPassword ? 'text' : 'password'}
+                                        value={formData.confirmPassword}
+                                        onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
+                                        required
+                                        InputProps={{
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    <FaLock className="FieldIcon" />
+                                                </InputAdornment>
+                                            ),
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <IconButton
+                                                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                                        edge="end"
+                                                        className="TogglePassword"
+                                                    >
+                                                        {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                    />
+                                </div>
+                            </div>
+
+                            <Button 
+                                type="submit"
+                                variant="contained" 
+                                fullWidth
+                                disabled={loading || success}
+                                className="AuthButton"
+                            >
+                                {loading ? (
+                                    <>
+                                        <CircularProgress size={20} color="inherit" />
+                                        <span>Creating Account...</span>
+                                    </>
+                                ) : success ? (
+                                    'Account Created!'
+                                ) : (
+                                    'Create Account'
+                                )}
+                            </Button>
+                        </form>
+
+                        <div className="AuthFooter">
+                            <p>Already have an account? <Link to="/signin">Sign in</Link></p>
                         </div>
-
-                        <div className="SignupRow">
-                            <PasswordField 
-                                label="Password"
-                                type={pass}
-                                onChange={e => setUser({...user, password: e.target.value})}>
-                            </PasswordField>
-
-                            <PasswordField 
-                                label="Confirm Password"
-                                type={pass}
-                                onChange={e => setUser({...user, confirmPassword: e.target.value})}>
-
-                                {pass ? 
-                                    <HiEye onClick={() => {showPass(false)}} />
-                                    :
-                                    <HiEyeOff onClick={() => {showPass(true)}} />
-                                }
-
-                            </PasswordField>                               
-                        </div>
-
-                        <Button variant="contained" color="primary" type="submit">Sign up</Button>
-                        <Link to="/signin">I already have an account</Link>
-                    </form>
+                    </div>
                 </div>
             </div>
         </Layout>

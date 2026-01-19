@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using CinemaAPI.Infrastructure.Filters;
 using FluentValidation.AspNetCore;
+using FluentValidation;
 using CinemaAPI.Core.Services;
 using Microsoft.AspNetCore.Http;
 using CinemaAPI.Infrastructure.Interfaces;
@@ -94,13 +95,16 @@ namespace CinemaAPI.Api
             });
 
 
+
             services.AddMvc(options =>
             {
                 options.Filters.Add<ValidationFilter>();
-            }).AddFluentValidation(options => 
-            {
-                options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
             });
+
+            // Updated FluentValidation configuration
+            services.AddFluentValidationAutoValidation();
+            services.AddFluentValidationClientsideAdapters();
+            services.AddValidatorsFromAssemblyContaining<Startup>();
 
         }
 

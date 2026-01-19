@@ -1,0 +1,489 @@
+.Status {
+    min-height: 100vh;
+    padding: 140px 60px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8edf2 100%);
+
+    .StatusHeader {
+        text-align: center;
+        margin-bottom: 40px;
+
+        h1 {
+            font-family: 'Cabin', sans-serif;
+            font-size: 42px;
+            color: #2c3e50;
+            margin: 0 0 12px 0;
+        }
+
+        p {
+            font-family: 'Cabin', sans-serif;
+            font-size: 18px;
+            color: #7f8c8d;
+            margin: 0;
+        }
+    }
+
+    .OverallStatus {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: white;
+        padding: 24px 32px;
+        border-radius: 12px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+
+        &.operational {
+            background: linear-gradient(to right, rgba(46, 204, 113, 0.08), white);
+        }
+
+        &.degraded {
+            background: linear-gradient(to right, rgba(243, 156, 18, 0.08), white);
+        }
+
+        &.outage {
+            background: linear-gradient(to right, rgba(231, 76, 60, 0.08), white);
+        }
+
+        .OverallLeft {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+
+            .StatusIndicator {
+                font-size: 24px;
+            }
+
+            .OverallText {
+                font-family: 'Cabin', sans-serif;
+                font-size: 20px;
+                font-weight: 600;
+                color: #2c3e50;
+            }
+        }
+
+        .spinning {
+            animation: spin 1s linear infinite;
+        }
+    }
+
+    .StatusIndicator {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-family: 'Cabin', sans-serif;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .UptimeSection {
+        background: white;
+        border-radius: 12px;
+        padding: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+
+        .UptimeHeader {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+
+            h2 {
+                font-family: 'Cabin', sans-serif;
+                font-size: 20px;
+                color: #2c3e50;
+                margin: 0;
+            }
+
+            .UptimePercent {
+                font-family: 'Cabin', sans-serif;
+                font-size: 24px;
+                font-weight: bold;
+                color: #2ecc71;
+            }
+        }
+
+        .UptimeBar {
+            display: flex;
+            gap: 3px;
+            height: 40px;
+            margin-bottom: 16px;
+
+            .UptimeDay {
+                flex: 1;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: transform 0.2s;
+
+                &:hover {
+                    transform: scaleY(1.1);
+                }
+
+                &.operational {
+                    background: #2ecc71;
+                }
+
+                &.degraded {
+                    background: #f39c12;
+                }
+
+                &.outage {
+                    background: #e74c3c;
+                }
+            }
+        }
+
+        .UptimeLegend {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+
+            span {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                font-family: 'Cabin', sans-serif;
+                font-size: 13px;
+                color: #7f8c8d;
+            }
+        }
+    }
+
+    .LatencySection {
+        background: white;
+        border-radius: 12px;
+        padding: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+
+        .LatencyHeader {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+
+            h2 {
+                font-family: 'Cabin', sans-serif;
+                font-size: 20px;
+                color: #2c3e50;
+                margin: 0;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+
+                svg {
+                    color: #3498db;
+                }
+            }
+
+            .LatencyAvg {
+                font-family: 'Cabin', sans-serif;
+                font-size: 24px;
+                font-weight: bold;
+                color: #3498db;
+            }
+        }
+
+        .LatencyBar {
+            display: flex;
+            gap: 3px;
+            height: 80px;
+            margin-bottom: 16px;
+            align-items: flex-end;
+
+            .LatencyDayWrapper {
+                flex: 1;
+                height: 100%;
+                display: flex;
+                align-items: flex-end;
+                cursor: pointer;
+            }
+
+            .LatencyDay {
+                width: 100%;
+                border-radius: 4px 4px 0 0;
+                transition: transform 0.2s, filter 0.2s;
+                min-height: 4px;
+
+                &:hover {
+                    filter: brightness(1.1);
+                    transform: scaleY(1.05);
+                }
+
+                &.fast {
+                    background: linear-gradient(to top, #2ecc71, #27ae60);
+                }
+
+                &.normal {
+                    background: linear-gradient(to top, #3498db, #2980b9);
+                }
+
+                &.slow {
+                    background: linear-gradient(to top, #f39c12, #e67e22);
+                }
+            }
+        }
+
+        .LatencyLegend {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+
+            span {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                font-family: 'Cabin', sans-serif;
+                font-size: 13px;
+                color: #7f8c8d;
+            }
+
+            .LegendDot {
+                width: 12px;
+                height: 12px;
+                border-radius: 3px;
+
+                &.fast {
+                    background: #2ecc71;
+                }
+
+                &.normal {
+                    background: #3498db;
+                }
+
+                &.slow {
+                    background: #f39c12;
+                }
+            }
+        }
+    }
+
+    .ServicesSection {
+        margin-bottom: 30px;
+
+        h2 {
+            font-family: 'Cabin', sans-serif;
+            font-size: 24px;
+            color: #2c3e50;
+            margin: 0 0 20px 0;
+        }
+
+        .ServicesGrid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .ServiceCard {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            display: flex;
+            gap: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            }
+
+            &.operational {
+                background: linear-gradient(135deg, rgba(46, 204, 113, 0.05) 0%, white 100%);
+            }
+
+            &.degraded {
+                background: linear-gradient(135deg, rgba(243, 156, 18, 0.05) 0%, white 100%);
+            }
+
+            &.outage {
+                background: linear-gradient(135deg, rgba(231, 76, 60, 0.05) 0%, white 100%);
+            }
+
+            .ServiceIcon {
+                font-size: 32px;
+                color: #fcaf3b;
+                opacity: 0.9;
+            }
+
+            .ServiceInfo {
+                flex: 1;
+
+                .ServiceHeader {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 8px;
+
+                    h3 {
+                        font-family: 'Cabin', sans-serif;
+                        font-size: 18px;
+                        color: #2c3e50;
+                        margin: 0;
+                    }
+                }
+
+                .ServiceDescription {
+                    font-family: 'Cabin', sans-serif;
+                    font-size: 14px;
+                    color: #7f8c8d;
+                    margin: 0 0 12px 0;
+                }
+
+                .ServiceMeta {
+                    display: flex;
+                    gap: 20px;
+                    font-family: 'Cabin', sans-serif;
+                    font-size: 12px;
+                    color: #95a5a6;
+
+                    .Latency {
+                        color: #2ecc71;
+                    }
+                }
+            }
+        }
+    }
+
+    .IncidentsSection {
+        background: white;
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+
+        h2 {
+            font-family: 'Cabin', sans-serif;
+            font-size: 24px;
+            color: #2c3e50;
+            margin: 0 0 20px 0;
+        }
+
+        .IncidentsList {
+            .Incident {
+                padding: 20px;
+                border-radius: 8px;
+                background: #f8f9fa;
+                margin-bottom: 16px;
+
+                &.resolved {
+                    background: linear-gradient(135deg, rgba(46, 204, 113, 0.08) 0%, #f8f9fa 100%);
+                }
+
+                &.investigating {
+                    background: linear-gradient(135deg, rgba(243, 156, 18, 0.08) 0%, #f8f9fa 100%);
+                }
+
+                &.identified {
+                    background: linear-gradient(135deg, rgba(52, 152, 219, 0.08) 0%, #f8f9fa 100%);
+                }
+
+                .IncidentHeader {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 10px;
+
+                    .IncidentStatus {
+                        display: flex;
+                        align-items: center;
+                        gap: 6px;
+                        font-family: 'Cabin', sans-serif;
+                        font-size: 13px;
+                        font-weight: 600;
+                        color: #2ecc71;
+                    }
+
+                    .IncidentDate {
+                        font-family: 'Cabin', sans-serif;
+                        font-size: 13px;
+                        color: #95a5a6;
+                    }
+                }
+
+                h3 {
+                    font-family: 'Cabin', sans-serif;
+                    font-size: 16px;
+                    color: #2c3e50;
+                    margin: 0 0 8px 0;
+                }
+
+                p {
+                    font-family: 'Cabin', sans-serif;
+                    font-size: 14px;
+                    color: #5d6d7e;
+                    margin: 0;
+                    line-height: 1.5;
+                }
+            }
+
+            .NoIncidents {
+                text-align: center;
+                padding: 40px;
+                color: #2ecc71;
+
+                svg {
+                    font-size: 48px;
+                    margin-bottom: 12px;
+                    opacity: 0.6;
+                }
+
+                p {
+                    font-family: 'Cabin', sans-serif;
+                    font-size: 16px;
+                    margin: 0;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        padding: 20px;
+
+        .StatusHeader h1 {
+            font-size: 28px;
+        }
+
+        .OverallStatus {
+            flex-direction: column;
+            gap: 16px;
+            text-align: center;
+
+            .OverallLeft {
+                flex-direction: column;
+            }
+        }
+
+        .ServicesSection .ServicesGrid {
+            grid-template-columns: 1fr;
+        }
+
+        .UptimeBar {
+            height: 30px;
+        }
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+// Tooltip styles
+.UptimeTooltip {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 4px 0;
+    text-align: center;
+
+    strong {
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    span {
+        font-size: 11px;
+        opacity: 0.9;
+    }
+}

@@ -6,7 +6,12 @@
     },
     {
         "id": 2,
-        "name": "Data",
-        "url": "/"
+        "name": "API Docs",
+        "url": "/docs"
+    },
+    {
+        "id": 6,
+        "name": "Status",
+        "url": "/status"
     }
 ]

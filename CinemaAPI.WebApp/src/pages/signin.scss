@@ -1,263 +1,256 @@
-body {
-    overflow-x: hidden !important;
+@import '../styles/variables';
+
+.AuthPage {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 120px $space-6 $space-12;
+    background: $gradient-dark;
 }
 
-.Signin { 
-    width: 100vw;
-    height: 1000px;
+.AuthContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 1000px;
+    width: 100%;
+    min-height: 600px;
+    background: $gray-900;
+    border-radius: $radius-xl;
+    overflow: hidden;
+    box-shadow: $shadow-2xl;
+    border: 1px solid rgba($white, 0.05);
+
+    @include respond-to(lg) {
+        grid-template-columns: 1fr;
+        max-width: 480px;
+    }
+}
+
+.AuthCard {
+    padding: $space-12;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
 
-    .SigninBox {
-        width: 400px;
-        height: 500px;
-        padding: 30px;
-        margin-top: -40px;
+    @include respond-to(md) {
+        padding: $space-8 $space-6;
+    }
+}
+
+.AuthHeader {
+    text-align: center;
+    margin-bottom: $space-8;
+
+    .AuthLogo {
+        width: 64px;
+        height: 64px;
+        margin: 0 auto $space-6;
         display: flex;
-        justify-content: center;
         align-items: center;
-        flex-direction: column;
-        background-color: #fff;
-        box-shadow: 0px 1px 4px 1px hsla(204, 35%, 42%, 0.534);
+        justify-content: center;
+        background: rgba($primary, 0.1);
+        border-radius: $radius-lg;
+        font-size: $text-2xl;
+        color: $primary;
+    }
 
-        h1 {
-            font-family: 'Cabin';
-            font-size: 35px;
-            font-weight: Bold;
-            color: #000000;
-            text-align: center;
+    h1 {
+        font-size: $text-3xl;
+        font-weight: $font-bold;
+        color: $white;
+        margin-bottom: $space-2;
+    }
+
+    p {
+        font-size: $text-base;
+        color: $gray-400;
+    }
+}
+
+.AuthAlert {
+    margin-bottom: $space-6;
+    border-radius: $radius-md;
+}
+
+.AuthForm {
+    display: flex;
+    flex-direction: column;
+    gap: $space-5;
+
+    .FormField {
+        .MuiTextField-root {
+            width: 100%;
+
+            .MuiOutlinedInput-root {
+                background: $gray-800;
+                border-radius: $radius-md;
+                color: $white;
+
+                fieldset {
+                    border-color: $gray-700;
+                }
+
+                &:hover fieldset {
+                    border-color: $gray-600;
+                }
+
+                &.Mui-focused fieldset {
+                    border-color: $primary;
+                }
+
+                // Override browser autocomplete styles
+                input:-webkit-autofill,
+                input:-webkit-autofill:hover,
+                input:-webkit-autofill:focus,
+                input:-webkit-autofill:active {
+                    -webkit-box-shadow: 0 0 0 30px $gray-800 inset !important;
+                    -webkit-text-fill-color: $white !important;
+                    caret-color: $white;
+                    transition: background-color 5000s ease-in-out 0s;
+                }
+            }
+
+            .MuiInputLabel-root {
+                color: $gray-400;
+
+                &.Mui-focused {
+                    color: $primary;
+                }
+            }
+
+            .MuiInputAdornment-root {
+                .FieldIcon {
+                    color: $gray-500;
+                    font-size: $text-base;
+                }
+
+                .TogglePassword {
+                    color: $gray-400;
+
+                    &:hover {
+                        color: $white;
+                    }
+                }
+            }
+        }
+    }
+
+    .AuthButton {
+        @include button-primary;
+        margin-top: $space-4;
+        padding: $space-4;
+        font-size: $text-base;
+        display: flex;
+        gap: $space-2;
+
+        &.Mui-disabled {
+            background: $gray-700;
+            color: $gray-400;
+        }
+    }
+}
+
+.AuthFooter {
+    text-align: center;
+    margin-top: $space-8;
+    padding-top: $space-6;
+    border-top: 1px solid rgba($white, 0.05);
+
+    p {
+        font-size: $text-sm;
+        color: $gray-400;
+
+        a {
+            color: $primary;
+            font-weight: $font-semibold;
+            transition: color $transition-base;
+
+            &:hover {
+                color: $primary-light;
+            }
+        }
+    }
+}
+
+.AuthDecor {
+    background: linear-gradient(135deg, $primary 0%, $dark-tertiary 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $space-12;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle, rgba($accent, 0.2) 0%, transparent 60%);
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: -30%;
+        left: -30%;
+        width: 80%;
+        height: 80%;
+        background: radial-gradient(circle, rgba($primary, 0.3) 0%, transparent 60%);
+    }
+
+    @include respond-to(lg) {
+        display: none;
+    }
+
+    .DecorContent {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        color: $white;
+
+        h2 {
+            font-size: $text-4xl;
+            font-weight: $font-extrabold;
+            margin-bottom: $space-4;
         }
 
+        p {
+            font-size: $text-lg;
+            color: rgba($white, 0.8);
+            max-width: 300px;
+            margin-bottom: $space-8;
+        }
 
-        .SigninForm {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 20px;
-            flex-direction: column;
-            
-            .FieldContainer {
+        .DecorFeatures {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+
+            li {
+                padding: $space-3 0;
+                font-size: $text-base;
+                color: rgba($white, 0.9);
                 display: flex;
                 align-items: center;
-                justify-content: center;
-                
-                &:first-child {
-                    padding-right: 20px;
+                gap: $space-3;
+
+                &::before {
+                    content: '✓';
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 24px;
+                    height: 24px;
+                    background: rgba($white, 0.2);
+                    border-radius: $radius-full;
+                    font-size: $text-sm;
                 }
-
-                .eye {
-                    user-select: none;
-                    cursor: pointer;
-                }
-
             }
-
-            button {
-                width: 250px;
-                padding: 10px 25px;
-                margin-top: 40px;
-                font-size: 15px;
-                border-radius: 0px;
-                background-color: #FFBA55;
-            }
-
-            a {
-                margin: 25px 0px;
-                font-family: 'Cabin';
-                font-size: 14px;
-                color: #000000;
-                user-select: none;
-                text-decoration: none;
-                cursor: pointer;
-
-                &:hover {
-                    transition: 1s;
-                    text-decoration: underline;
-                }
-
-            }
-
         }
-
     }
-
-
-    @media screen and (max-width: 670px) and (min-width: 560px) {
-        .SigninBox {
-            width: 380px;
-            height: 480px;
-
-            h1 {
-                font-size: 32px;
-            }
-
-        }
-
-
-
-    }
-
-    @media screen and (max-width: 560px) and (min-width: 500px) {
-        .SigninBox {
-            width: 340px;
-            height: 440px;
-
-            h1 {
-                font-size: 30px;
-            }
-
-        }
-
-    }
-
-    @media screen and (max-width: 500px) and (min-width: 440px) {
-        .SigninBox {
-            width: 320px;
-            height: 440px;
-
-            h1 {
-                font-size: 30px;
-            }
-
-            .SigninForm {
-
-                button {
-                    width: 230px;
-                }
-            }
-
-        }
-
-    }
-
-    @media screen and (max-width: 440px) and (min-width: 400px) {
-        .SigninBox {
-            width: 280px;
-            height: 440px;
-
-            h1 {
-                font-size: 29px;
-            }
-
-            .SigninForm {
-
-                button {
-                    width: 190px;
-                }
-
-                a {
-                    font-size: 13px;
-                }
-            }
-
-        }
-
-    }
-
-    @media screen and (max-width: 400px) and (min-width: 375px) {
-
-        height: 950px;
-
-        .SigninBox {
-            width: 250px;
-            height: 420px;
-
-            h1 {
-                font-size: 27px;
-            }
-
-            .SigninForm {
-
-                .FieldContainer {
-                    &:first-child {
-                        padding-right: 0px;
-                    }
-                }
-
-                button {
-                    width: 170px;
-                }
-
-                a {
-                    font-size: 13px;
-                }
-
-            }
-
-        }
-
-    }
-
-    @media screen and (max-width: 374px) and (min-width: 346px) {
-
-        height: 950px;
-
-        .SigninBox {
-            width: 235px;
-            height: 420px;
-
-            h1 {
-                font-size: 25px;
-            }
-
-            .SigninForm {
-
-                .FieldContainer {
-                    &:first-child {
-                        padding-right: 0px;
-                    }
-                }
-
-                button {
-                    width: 150px;
-                    height: 40px;
-                }
-
-                a {
-                    font-size: 12px;
-                }
-
-            }
-
-        }
-
-    }
-
-    @media screen and (max-width: 345px) {
-
-        height: 950px;
-
-        .SigninBox {
-            width: 205px;
-            height: 360px;
-
-            h1 {
-                font-size: 25px;
-            }
-
-            .SigninForm {
-
-                .FieldContainer {
-                    &:first-child {
-                        padding-right: 0px;
-                    }
-                }
-
-                button {
-                    width: 150px;
-                    height: 40px;
-                }
-
-                a {
-                    font-size: 12px;
-                }
-
-            }
-
-        }
-
-    }
-
 }

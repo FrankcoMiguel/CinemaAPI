@@ -2,6 +2,7 @@
 using CinemaAPI.Core.Exceptions;
 using CinemaAPI.Core.Interfaces;
 using CinemaAPI.Infrastructure.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace CinemaAPI.Api.Controllers
 {
+    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     public class TokenController : ControllerBase

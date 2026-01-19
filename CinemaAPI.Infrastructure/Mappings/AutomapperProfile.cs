@@ -23,9 +23,11 @@ namespace CinemaAPI.Infrastructure.Mappings
             CreateMap<Rating, RatingDTO>();
             CreateMap<RatingDTO, Rating>();
 
-
             CreateMap<User, UserDTO>();
             CreateMap<UserDTO, User>();
+
+            CreateMap<Casting, CastingDTO>();
+            CreateMap<CastingDTO, Casting>();
 
         }
     }

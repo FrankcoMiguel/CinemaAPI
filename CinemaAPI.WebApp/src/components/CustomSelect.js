@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import {InputLabel, Select, MenuItem} from '@material-ui/core'
-import FormControl from '@material-ui/core/FormControl';
+import { InputLabel, Select, MenuItem, FormControl } from '@mui/material'
 
 const CustomSelect = ({label, value, onChange, items = []}) => {
 

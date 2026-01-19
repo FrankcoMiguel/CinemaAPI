@@ -8,6 +8,7 @@ namespace CinemaAPI.Infrastructure.Repositories
     {
         private readonly CinemaAPIContext _context;
 
+        private readonly ICastingRepository _castingRepository;
         private readonly IFilmRepository _filmRepository;
         private readonly IGenreRepository _genreRepository;
         private readonly IOccupationRepository _occupationRepository;
@@ -20,6 +21,7 @@ namespace CinemaAPI.Infrastructure.Repositories
             _context = context;
         }
 
+        public ICastingRepository CastingRepository => _castingRepository ?? new CastingRepository(_context);
         public IFilmRepository FilmRepository => _filmRepository ?? new FilmRepository(_context);
         public IGenreRepository GenreRepository => _genreRepository ?? new GenreRepository(_context);
         public IOccupationRepository OccupationRepository => _occupationRepository ?? new OccupationRepository(_context);
